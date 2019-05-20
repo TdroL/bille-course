@@ -64,7 +64,7 @@
   min-width: 60%
 }
 
-.reveal pre ::selection, .reveal textarea::selection {
+.reveal section ::selection {
   color: #fff !important;
   background-color: #f0f !important;
 }
