@@ -1,0 +1,5 @@
+!.gitignore
+base/
+001-podstawy/test/
+002-obiektowosc/test/
+003-funkcyjnosc/test/

@@ -1,0 +1,153 @@
+@font-face {
+  font-family: 'fontello';
+  src: url('../font/fontello.eot?85852742');
+  src: url('../font/fontello.eot?85852742#iefix') format('embedded-opentype'),
+       url('../font/fontello.woff2?85852742') format('woff2'),
+       url('../font/fontello.woff?85852742') format('woff'),
+       url('../font/fontello.ttf?85852742') format('truetype'),
+       url('../font/fontello.svg?85852742#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.reveal .slides {
+  display: flex;
+  align-items: center;
+}
+
+.reveal .slides > section {
+  top: auto !important;
+}
+
+.reveal pre, .reveal textarea {
+  display: block;
+  position: relative;
+  width: 90%;
+  margin: 20px auto;
+  text-align: left;
+  font-size: 0.55em;
+  font-family: monospace;
+  line-height: 1.2em;
+  word-wrap: break-word;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+  padding: 0 0.5em;
+  border: 0;
+  color: #dcdcdc;
+  background: #3f3f3f;
+  box-sizing: border-box;
+  resize: none;
+}
+
+.reveal textarea {
+  height: auto;
+}
+
+.reveal textarea[data-no-strict] {
+  background: repeating-linear-gradient(-45deg, #3f3f3f 0%, #3f3f3f 5%, #2f2f2f 5.1%, #2f2f2f 10%);
+}
+
+.reveal textarea[data-prepend] {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAIAAAD9iXMrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB0SURBVChTjZHLEcAgCAUtj4Ioh14ohVIMEmSe+boXBVdgtPU9Fs9UmFpALJbZADxlPxaNYxPyPZjlDYs1A8djFKdXmmm0JvYF7qU3+kR2+q4v9S9e+bALwItxfurtzgcVnykvTT7f7wZ4zmg6P+T1Pz7o/QAs6JkTvDR/5AAAAABJRU5ErkJggg==');
+  background-position: top right;
+  background-repeat: no-repeat;
+}
+
+.reveal ul {
+  min-width: 60%
+}
+
+.reveal pre ::selection, .reveal textarea::selection {
+  color: #fff !important;
+  background-color: #f0f !important;
+}
+
+.reveal .eval-container {
+  margin: -15px auto 20px;
+  width: 90%;
+  /* position: relative; */
+  display: flex;
+  align-items: flex-start;
+}
+
+.reveal li > pre, .reveal li > .eval-container {
+  margin: 20px 0;
+}
+
+.reveal .eval-container .eval-controls {
+  /* width: 60px; */
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.reveal .eval-container .eval-controls button {
+  width: 24px;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 0;
+  margin: 0 6px 0 0;
+  border: 0;
+  vertical-align: top;
+  cursor: pointer;
+  box-shadow: 0 0 2px #000;
+}
+
+.reveal .eval-container .eval-controls button[data-action=run] {
+  background: limegreen;
+  color: #000;
+}
+
+.reveal .eval-container .eval-controls button[data-action=clear] {
+  background: red;
+  color: #fff;
+}
+
+.reveal .eval-container pre {
+  margin: 0;
+  width: auto;
+  flex: 1;
+}
+
+.reveal .eval-container code {
+  white-space: normal;
+  padding: 0 5px;
+  font-size: 0.85em;
+  line-height: 1.25;
+}
+
+.reveal .eval-container code.eval-log {
+  color: lightseagreen;
+}
+
+.reveal .eval-container code.eval-log:before {
+  display: inline-block;
+  width: 30px;
+  font-family: 'fontello';
+  content: '\e800';
+  /* padding-right: 5px; */
+}
+
+.reveal .eval-container code.eval-result:before {
+  display: inline-block;
+  width: 30px;
+  content: '›';
+  /* padding-right: 10px; */
+}
+
+.reveal .eval-container code.eval-error {
+  color: red;
+}
+
+.reveal .eval-container code.eval-error:before {
+  display: inline-block;
+  width: 30px;
+  content: '›';
+  /* padding-right: 10px; */
+}

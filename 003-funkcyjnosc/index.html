@@ -1,0 +1,2025 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Bille-Course - Podstawy JavaScript</title>
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/black.css">
+
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+  <link rel="stylesheet" href="lib/css/eval.css">
+
+  <script>
+    function compose(...args) {
+      return (x) => {
+        let result = x;
+        for (let i = args.length - 1; i >= 0; i--) {
+          result = args[i](result);
+        }
+        return result;
+      };
+    }
+
+    function pipe(...args) {
+      return (x) => {
+        let result = x;
+        for (let i = 0; i < args.length; i++) {
+          result = args[i](result);
+        }
+        return result;
+      };
+    }
+
+    function curryN(n, fn) {
+      return (...args) => {
+        if (args.length >= n) {
+          return fn(...args);
+        } else {
+          return curryN(n - args.length, (...restArgs) => {
+            return fn(...args, ...restArgs);
+          });
+        }
+      };
+    }
+
+    function map(callback, input) {
+      return (input) => {
+        return input.map(callback);
+      };
+    }
+
+    function filter(callback) {
+      return (input) => {
+        return input.filter(callback);
+      };
+    }
+
+    function reduce(callback, initial) {
+      return (input) => {
+        return input.reduce(callback, initial);
+      };
+    }
+
+    function tap(callback) {
+      return (input) => {
+        callback(input);
+        return input;
+      }
+    }
+
+    function pick(key) {
+      return (input) => input != null ? input[key] : undefined;
+    }
+
+    function pluck(key) {
+      return map(pick(key));
+    }
+
+    function path(props) {
+      return pipe(
+        ...props.map(pick)
+      );
+    }
+
+    function accessObject(name, callback) {
+      return (input) => {
+        if (typeof input !== 'object' || input === null) {
+          input = {};
+        }
+
+        return {
+          ...input,
+          [name]: callback(input[name]),
+        }
+      };
+    }
+
+    function accessArray(index, callback) {
+      return (input) => {
+        if (!Array.isArray(input)) {
+          input = [];
+        }
+
+
+        return [
+          ...input.slice(0, index),
+          ...Array(Math.max(0, index - input.length)),
+          callback(input[index]),
+          ...input.slice(index + 1),
+        ];
+      };
+    }
+
+    function access(key, callback) {
+      if (typeof key === 'number') {
+        return accessArray(key, callback);
+      } else {
+        return accessObject(key, callback);
+      }
+    }
+
+    function accessPath(path, callback) {
+      return compose(
+        ...path.map(curryN(2, access))
+      )(callback);
+    }
+  </script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <!-- <section id="start">
+        <ol>
+          <li><a href="#/paradigms-start">paradygmaty</a></li>
+          <li><a href="#/components-start">komponenty fp</a></li>
+          <li><a href="#/reduce-start">reduce</a></li>
+          <li><a href="#/objects-start">praca z obiektami</a></li>
+        </ol>
+      </section> -->
+
+      <section>
+        <h3>małe przypomnienie</h3>
+        <p>spread syntax</p>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn(x, y, z) {
+  log('x, y, z =', x, y, z);
+}
+
+fn(1, 2, 3);
+
+const args = [2, 3];
+fn(1, args[0], args[1]);
+
+fn(1, ...args);
+
+fn(1, ...[2, 3]);
+
+function getArgs() { return [2, 3]; }
+fn(1, ...getArgs());
+        </textarea>
+      </section>
+
+      <section id="paradigms-start">
+        <h1>paradygmaty</h1>
+        <ul>
+          <li>proceduralny</li>
+          <li>obiektowy</li>
+          <li><u>funkcyjny</u></li>
+        </ul>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn(input) {
+  let result = [];
+  for (let i = 0; i &lt; input.length; i++) {
+    if (input[i] % 2 === 1) {
+      result.push(input[i] * 2);
+    }
+  }
+  return result;
+}
+fn([1, 2, 3]);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+class NumberList {
+  constructor(list) { this.list = list; }
+
+  applyCriteria(criteria) {
+    this.list = this.list.filter((value) => {
+      return criteria.run(value);
+    });
+  }
+
+  applyProcessor(processor) {
+    this.list = this.list.map((value) => {
+      return processor.run(value);
+    });
+  }
+}
+class EvenCriteria { run(value) { return !(value % 2); } }
+class MultiplyProcessor { run(value) { return value * 2; } }
+
+const numberList = new NumberList([1, 2, 3]);
+numberList.applyCriteria(new EvenCriteria());
+numberList.applyCriteria(new MultiplyProcessor());
+numberList.list;
+        </textarea>
+        <!-- <textarea class="eval" autocomplete="off" rows="1">
+        function fn(input) {
+  let result = [];
+  input.forEach((value) =&gt; {
+    if (value % 2 === 1) {
+      result.push(value * 2);
+    }
+  });
+  return result;
+}
+fn([1, 2, 3]);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn(input) {
+  return input
+    .filter((value) =&gt; {
+      return value % 2 === 1;
+    })
+    .map((value) =&gt; {
+      return value * 2;
+    });
+}
+fn([1, 2, 3]);
+        </textarea> -->
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (value) =&gt; value * 2;
+const isEven = (value) =&gt; value % 2 === 1;
+
+const map = (callback, input) => input.map(callback);
+const filter = (callback, input) => input.filter(callback);
+
+function fn(input) {
+  return map(multiply, filter(isEven, input));
+}
+fn([1, 2, 3]);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (value) =&gt; value * 2;
+const isEven = (value) =&gt; value % 2 === 1;
+
+// function map(...) { ... }
+// function filter(...) { ... }
+
+const fn = compose(
+  map(multiply),
+  filter(isEven)
+);
+fn([1, 2, 3]);
+        </textarea>
+      </section>
+
+      <section id="components-start">
+        <h1>komponenty fp</h1>
+        <ul>
+          <li><a href="#pure-impure-functions-start">pure/impure functions</a></li>
+          <li><a href="#side-effects-start">side effects</a></li>
+          <li><a href="#composition-start">composition</a></li>
+          <li><a href="#currying-start">currying</a></li>
+          <li>**recursion</li>
+        </ul>
+      </section>
+
+      <section id="pure-impure-functions-start">
+        <h2>pure/impure functions</h2>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function pure(a, b) {
+  return a + b;
+}
+pure(1, 2);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function pure(a, b) {
+  return a > b ? a : b;
+}
+pure(1, 2);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function impure(a, b) {
+  a.propB = b;
+  return a;
+}
+let a = {};
+log('impure', impure(a, 2));
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function impure(a, b) {
+  // łatwo zapomnieć, że pojawi się w konsoli przeglądarki
+  console.log(a, b);
+  return a + b;
+}
+impure(1, 2);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function pure(a, b) {
+  return a + b;
+}
+
+function fn(a) { // pure
+  return pure(a, 3);
+}
+fn(1);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function impure(a, b) {
+  a.propA = b;
+  return a;
+}
+
+function fn(a) { // impure
+  return impure(a, 3);
+}
+let a = {};
+fn(a);
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <h3>Impure?</h3>
+        <ol>
+          <li>mutability: modyfikowanie zewnętrznych obiektów lub zmiennych</li>
+          <li>wywoływanie funkcji impure</li>
+          <li>
+            I/O
+            <ol>
+              <li>uzywanie method obiektu <code>console</code></li>
+              <li>modyfikowanie DOMa (przeglądarki)</li>
+              <li>operacje na plikach tj. czytanie/zapisywanie (serwer)</li>
+              <li>requesty sieciowe (przeglądarka i serwer)</li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+
+
+      <section id="side-effects-start">
+        <h2>side effects</h2>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function pure(a, b) {
+  return a + b;
+}
+log(pure(1, 2));
+log(pure(1, 2));
+log(pure(1, 2));
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let counter = 0;
+function impure(a, b) {
+  return a + b + counter++;
+}
+log(impure(1, 2));
+log(impure(1, 2));
+log(impure(1, 2));
+        </textarea>
+      </section>
+
+      <!--
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function pure(a, b) {
+  while (b > 0) { b--; a++; }
+  return a;
+}
+
+function memoize(fn) {
+  const cache = [];
+  return (...args) =&gt; {
+    const stringArgs = JSON.stringify(args);
+    const cached = cache.find((item) =&gt; item.args = stringArgs);
+    if (cached) {
+      return cached.result;
+    } else {
+      const result = fn(...args);
+      cache.push({ args: stringArgs, result });
+      return result;
+    }
+  };
+}
+const pureMemoized = memoize(pure);
+log(pureMemoized(1, 200));
+log(pureMemoized(1, 200));
+log(pureMemoized(1, 200));
+        </textarea>
+      </section>
+      -->
+
+      <section id="composition-start">
+        <h2>composition</h2>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const square = (x) =&gt; x * x;
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+// ((x - 1) * 2) ^ 2
+square(multiply(decrease(12)));
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+const square = (x) =&gt; x * x;
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+function f(x) {
+  return square(
+    multiply(
+      decrease(x)
+    )
+  );
+}
+
+f(12);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const square = (x) =&gt; x * x;
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+function compose3(fn1, fn2, fn3) {
+  return (x) =&gt; {
+    return fn1(fn2(fn3(x)));
+  };
+}
+
+const f = compose4(square, multiply, decrease);
+f(12);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const square = (x) =&gt; x * x;
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+function compose3(fn1, fn2, fn3) {
+  return (x) =&gt; {
+    let result = x;
+    result = fn3(result);
+    result = fn2(result);
+    result = fn1(result);
+    return result;
+  };
+}
+
+const f = compose4(square, multiply, decrease);
+f(12);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const square = (x) =&gt; x * x;
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+function compose4(fnList) {
+  return (x) =&gt; {
+    let result = x;
+    result = fnList[2](result);
+    result = fnList[1](result);
+    result = fnList[0](result);
+    return result;
+  };
+}
+
+const f = compose4([square, multiply, decrease]);
+f(12);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const square = (x) =&gt; x * x;
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+function compose(fnList) {
+  return (x) =&gt; {
+    let result = x;
+    for (let i = fnList.length - 1; i &gt;= 0; i--) {
+      result = fnList[i](result);
+    }
+    return result;
+  };
+}
+
+const f = compose([square, multiply, decrease]);
+f(12);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const square = (x) =&gt; x * x;
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+function compose(...args) {
+  return (x) =&gt; {
+    let result = x;
+    for (let i = args.length - 1; i &gt;= 0; i--) {
+      result = args[i](result);
+    }
+    return result;
+  };
+}
+
+const f = compose(square, multiply, decrease);
+f(12);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function compose(...args) {
+  return (x) =&gt; {
+    let result = x;
+    for (let i = args.length - 1; i &gt;= 0; i--) {
+      result = args[i](result);
+    }
+    return result;
+  };
+}
+
+// zerowa liczba funkcji nie powoduje błędu
+const f = compose();
+f(12);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const square = (x) =&gt; x * x;
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+const f = compose(
+  square
+  (x) =&gt; { log('x', x); return x; },
+  multiply,
+  (x) =&gt; { log('x', x); return x; },
+  decrease
+);
+f(12);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const square = (x) =&gt; x * x;
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+function pipe(...args) {
+  return (x) =&gt; {
+    let result = x;
+    for (let i = 0; i &lt; args.length; i++) {
+      result = args[i](result);
+    }
+    return result;
+  };
+}
+
+const f = pipe(decrease, multiply, square);
+f(12);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const square = (x) =&gt; x * x;
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+function pipe(...args) {
+  return (x) =&gt; {
+    let result = x;
+    for (let i = 0; i &lt; args.length; i++) {
+      result = args[i](result);
+    }
+    return result;
+  };
+}
+
+const f = pipe(
+  decrease,
+  (x) =&gt; { log('x', x); return x; },
+  multiply,
+  (x) =&gt; { log('x', x); return x; },
+  square
+);
+f(12);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const square = (x) =&gt; x * x;
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+const squareLog = compose(
+  (x) =&gt; { log('squared x', x); return x; },
+  square
+);
+
+const multiplyLog = compose(
+  (x) =&gt; { log('multiplied x', x); return x; },
+  multiply
+);
+
+const decreaseLog = compose(
+  (x) =&gt; { log('decreased x', x); return x; },
+  decrease
+);
+
+const f = pipe(decreaseLog, multiplyLog, squareLog);
+f(12);
+        </textarea>
+      </section>
+
+      <section id="currying-start">
+        <h2>currying</h2>
+      </section>
+
+      <section>
+        <p>simple currying</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+const f = (x, y, z) =&gt; x + y + z;
+
+const g = (x) =&gt; {
+  return (y) =&gt; {
+    return (z) =&gt; {
+      return x + y + z;
+    };
+  };
+};
+
+log('f', f(1, 2, 3));
+log('g', g(1)(2)(3));
+
+f(1, 2, 3) === g(1)(2)(3);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const f = (x, y, z) =&gt; x + y + z;
+
+function curryN(n, fn) {
+  switch (n) {
+    case 0: return () =&gt; fn();
+    case 1: return (x) =&gt; fn(x);
+    case 2: return (x) =&gt; (y) =&gt; fn(x, y);
+    case 3: return (x) =&gt; (y) =&gt; (z) =&gt; fn(x, y, z);
+    // ...
+  }
+}
+
+const g = curryN(3, f);
+log('f', f(1, 2, 3));
+log('g', g(1)(2)(3));
+
+f(1, 2, 3) === g(1)(2)(3);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const f = (x, y, z) =&gt; x + y + z;
+
+function curryN(n, fn) {
+  return (x) =&gt; { // pojedyńczy argument
+    if (1 >= n) {
+      return fn(x);
+    } else {
+      return curryN(n - 1, (...args) =&gt; {
+        return fn(x, ...args);
+      });
+    }
+  };
+}
+
+const g = curryN(3, f);
+log('g', g(1)(2)(3));
+// log('partial', g(1)(2));
+
+f(1, 2, 3) === g(1)(2)(3);
+        </textarea>
+      </section>
+
+      <section>
+        <p>overloaded currying</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+const f = (x, y, z) =&gt; x + y + z;
+
+function curryN(n, fn) {
+  return (...args) =&gt; { // wiele argumentów
+    if (args.length >= n) {
+      return fn(...args);
+    } else {
+      return curryN(n - args.length, (...restArgs) =&gt; {
+        return fn(...args, ...restArgs);
+      });
+    }
+  };
+}
+
+const g = curryN(3, f);
+log('g', g(1)(2)(3));
+log('g', g(1, 2)(3));
+log('g', g(1)(2, 3));
+log('g', g(1, 2, 3));
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const f = (x, y, z) =&gt; x + y + z;
+
+const g = curryN(3, f);
+
+// zapomnienie jednego parametru nie powoduje błędów
+// przez co ciężko czasem odgadnąć co powoduje błąd
+const result = g(1, 2);
+
+log("result * 4 =", result * 4);
+
+if (g(1, 2)) {
+  log("truthy branch");
+} else {
+  log("falsy branch");
+}
+        </textarea>
+      </section>
+
+      <section>
+        <p>użyteczne funkcje FP</p>
+        <ul>
+          <li>compose/pipe</li>
+          <li><a href="#func-map-start">map</a></li>
+          <li><a href="#func-filter-start">filter</a></li>
+          <li><a href="#func-reduce-start">reduce</a></li>
+          <li><a href="#func-tap-start">tap</a></li>
+          <li><a href="#func-pick-start">pick</a></li>
+          <li><a href="#func-pluck-start">pluck</a></li>
+          <li>path</li>
+          <li>access/accessPath/assoc</li>
+        </ul>
+      </section>
+
+      <section id="func-map-start">
+        <textarea class="eval" autocomplete="off" rows="1">
+function map(input, fn) {
+  const results = [];
+  for (let i = 0; i &lt; input.length; i++) {
+    results[i] = fn(input[i], i, input);
+  }
+  return results;
+}
+
+// map([1, 2, 3], (x) =&gt; x * 2);
+map(
+  [1, 2, 3],
+  (x) =&gt; x * 2
+);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+function map(input, fn) {
+  const results = [];
+  for (let i = 0; i &lt; input.length; i++) {
+    results[i] = fn(input[i], i, input);
+  }
+  return results;
+}
+
+map(
+  map(
+    [1, 2, 3],
+    (x) =&gt; multiply(x)
+  ),
+  (x) =&gt; decrease(x)
+);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+function map(input, fn) {
+  return input.map(fn);
+}
+
+map(
+  map(
+    [1, 2, 3],
+    (x) =&gt; multiply(x)
+  ),
+  (x) =&gt; decrease(x)
+);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+// zamieniamy kolejnosc "fn" i "input"
+function map(fn, input) {
+  return input.map(fn);
+}
+
+map(
+  (x) =&gt; decrease(x),
+  map(
+    (x) =&gt; multiply(x),
+    [1, 2, 3]
+  )
+);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+function map(fn, input) {
+  return input.map(fn);
+}
+
+// zastosujemy compose
+// fn1(fn2(x)) === compose(fn1, fn2)(x)
+const fn = compose(
+  (array) =&gt; map(decrease, array), // #2
+  (array) =&gt; map(multiply, array), // #1
+);
+fn([1, 2, 3]);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+// zamieniamy na simple curry
+function map(fn) {
+  return (input) =&gt; {
+    return input.map(fn);
+  };
+}
+
+const fn = compose(
+  map(decrease), // #2
+  map(multiply), // #1
+);
+fn([1, 2, 3]);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+function map(fn) {
+  return (input) =&gt; {
+    return input.map(fn);
+  };
+}
+
+// odwrocimy kolejnosc funckji "map"
+const fn = pipe(
+  map(multiply), // #1
+  map(decrease), // #2
+);
+fn([1, 2, 3]);
+        </textarea>
+      </section>
+
+      <section id="func-filter-start">
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+const isEven = (x) =&gt; x % 2 == 0;
+
+function filter(fn) {
+  return (input) => {
+    let result = [];
+    for (let i = 0; i &lt; input.length; i++) {
+      if (fn(input[i], i, input)) {
+        result.push(input[i]);
+      }
+    }
+    return result;
+  };
+}
+
+filter(isEven)([1, 2, 3]);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+const isEven = (x) =&gt; x % 2 == 0;
+
+function filter(fn) {
+  return (input) =&gt; {
+    return input.filter(fn);
+  };
+}
+// filter(isEven)([1, 2, 3]);
+
+const fn = pipe(
+  map(decrease),
+  filter(isEven),
+  map(multiply),
+);
+fn([1, 2, 3]);
+        </textarea>
+      </section>
+
+
+      <section id="func-reduce-start">
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+const sum = (a, b) =&gt; a + b;
+
+function reduce(fn, initial) {
+  return (input) =&gt; {
+    let current = initial;
+    for (let i = 0; i &lt; input.length; i++) {
+      current = fn(current, input[i]);
+    }
+    return current;
+  };
+}
+// reduce(sum, 0)([1, 2, 3])
+
+const fn = pipe(
+  map(decrease),
+  map(multiply),
+  reduce(sum, 0),
+);
+fn([1, 2, 3]);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+const sum = (a, b) =&gt; a + b;
+
+function reduce(fn) {
+  return (initial) =&gt; {
+    return (input) =&gt; {
+      return input.reduce(fn, initial);
+    };
+  };
+}
+// reduce(sum)(0)([1, 2, 3])
+
+const fn = pipe(
+  map(decrease),
+  map(multiply),
+  reduce(sum)(0),
+);
+fn([1, 2, 3]);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+const sum = (a, b) =&gt; a + b;
+
+function reduce(fn, initial) {
+  return (input) =&gt; {
+    return input.reduce(fn, initial);
+  };
+}
+// reduce(sum, 0)([1, 2, 3])
+
+const fn = pipe(
+  map(decrease),
+  map(multiply),
+  reduce(sum, 0),
+);
+fn([1, 2, 3]);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+// reimplementacja "map" przy użyciu reduce
+function map(fn) {
+  return (input) =&gt; {
+    return input.reduce((acc, value) =&gt; {
+      return [...acc, fn(value)];
+    }, []);
+  };
+}
+
+const fn = pipe(
+  map(decrease),
+  map(multiply),
+);
+fn([1, 2, 3]);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+const isEven = (x) =&gt; x % 2 == 0;
+
+// reimplementacja "filter" przy użyciu reduce
+function filter(fn) {
+  return (input) =&gt; {
+    return input.reduce((acc, value) =&gt; {
+      return fn(value) ? [...acc, value] : acc;
+    }, []);
+  };
+}
+
+const fn = pipe(
+  map(decrease),
+  filter(isEven),
+  map(multiply),
+);
+fn([1, 2, 3]);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+// reimplementacja "pipe" przy użyciu reduce
+function pipe(...args) {
+  return (input) =&gt; {
+    return args.reduce((acc, fn) =&gt; {
+      return fn(acc);
+    }, input);
+  };
+}
+
+const fn = pipe(
+  map(decrease),
+  map(multiply),
+);
+fn([1, 2, 3]);
+        </textarea>
+      </section>
+
+      <section id="objects-start">
+        <h1>praca z obiektami</h1>
+      </section>
+
+      <section id="func-tap-start">
+        <textarea class="eval" autocomplete="off" rows="1">
+const multiply = (x) =&gt; x * 2;
+const decrease = (x) =&gt; x - 1;
+
+function tap(fn) {
+  return (input) =&gt; {
+    fn(input); // wynik funkcji jest ignorowany
+    return input;
+  };
+}
+// tap((x) =&gt; log('x', x))(1)
+
+const fn = pipe(
+  map(multiply),
+  tap((values) =&gt; log(values)), // tap(log),
+  map(decrease),
+);
+fn([1, 2, 3]);
+        </textarea>
+      </section>
+
+      <section id="func-pick-start">
+        <textarea class="eval" autocomplete="off" rows="1">
+const isDefined = (x) =&gt; x != null;
+
+function pick(key) {
+  return (input) =&gt; {
+    return x != null ? input[key] : undefined;
+  };
+}
+// pick('a')({ a: 1 })
+
+const fn = pipe(
+  map(pick('name')),
+  tap(log),
+  filter(isDefined)
+);
+fn([{ name: 'A' }, { name: 'B' }, {}]);
+        </textarea>
+      </section>
+
+      <section id="func-pluck-start">
+        <textarea class="eval" autocomplete="off" rows="1">
+const isDefined = (x) =&gt; x != null;
+
+function pluck(key) {
+  return (input) =&gt; {
+    return input.map((value) =&gt; {
+      return x != null ? value[key] : undefined;
+    });
+  };
+}
+// pluck('a')([{ a: 1 }, {}])
+
+const fn = pipe(
+  pluck('name'), // map(pick('name')),
+  tap(log),
+  filter(isDefined)
+);
+fn([{ name: 'A' }, { name: 'B' }, {}]);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const isDefined = (x) =&gt; x != null;
+function pluck(key) {
+  return map(pick(key));
+}
+
+const fn = pipe(
+  pluck('name'),
+  tap(log),
+  filter(isDefined)
+);
+fn([{ name: 'A' }, { name: 'B' }, {}]);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const isDefined = (x) =&gt; x != null;
+
+// zastosujemy compose
+// f(g(x)) === compose(f, g)(x)
+// (x) => { return f(g(x)); } ~~> compose(f, g)
+const pluck = compose(
+  map,
+  pick
+);
+
+const fn = pipe(
+  pluck('name'),
+  tap(log),
+  filter(isDefined)
+);
+fn([{ name: 'A' }, { name: 'B' }, {}]);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn(object) {
+  return object.details.users[0].name;
+}
+
+fn({
+  details: {
+    users: [{
+      name: 'Lorem'
+    }],
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn(object) {
+  if (object != null) {
+    if (object.details != null) {
+      if (object.details.users != null) {
+        if (object.details.users[0] != null) {
+          if (object.details.users[0].name != null) {
+            return object.details.users[0].name;
+          }
+        }
+      }
+    }
+  }
+
+  return undefined;
+}
+
+fn({
+  details: {
+    users: [{
+      name: 'Lorem'
+    }],
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn(object) {
+  if (object != null ||
+    object.details != null ||
+    object.details.users != null ||
+    object.details.users[0] != null ||
+    object.details.users[0].name != null) {
+    return object.details.users[0].name;
+  } else {
+    return undefined;
+  }
+}
+
+fn({
+  details: {
+    users: [{
+      name: 'Lorem'
+    }],
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function pick(key) {
+  return (input) =&gt; {
+    return input != null ? input[key] : undefined;
+  };
+}
+
+function fn(data) {
+  let result = data;
+  result = pick('details')(result);
+  result = pick('users')(result);
+  result = pick(0)(result);
+  result = pick('name')(result);
+  return result;
+}
+
+fn({
+  details: {
+    users: [{
+      name: 'Lorem'
+    }],
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function pick(key) {
+  return (input) =&gt; {
+    return input != null ? input[key] : undefined;
+  };
+}
+
+const fn = pipe(
+  pick('details'),
+  pick('users'),
+  pick(0),
+  pick('name'),
+);
+
+fn({
+  details: {
+    users: [{
+      name: 'Lorem'
+    }],
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const fn = pipe(
+  ...[
+    pick('details'),
+    pick('users'),
+    pick(0),
+    pick('name'),
+  ]
+);
+fn({
+  details: {
+    users: [{
+      name: 'Lorem'
+    }],
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const props = ['details', 'users', 0, 'name'];
+
+const fn = pipe(
+  ...props.map(pick)
+);
+fn({
+  details: {
+    users: [{
+      name: 'Lorem'
+    }],
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function path(props) {
+  return pipe(
+    ...props.map(pick)
+  );
+}
+
+const findName = path(['details', 'users', 0, 'name']);
+
+findName({
+  details: {
+    users: [{
+      name: 'Lorem'
+    }],
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function setName(input) {
+  if (input == null) {
+    input = {};
+  }
+
+  return {
+    ...input,
+    name: input.name ? 'updated name' : 'new name',
+  };
+}
+
+setName({ name: 'old name' });
+// setName({});
+// setName(undefined);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function accessObject(name, callback) {
+  return (input) =&gt; {
+    if (input == null) {
+      input = {};
+    }
+
+    return {
+      ...input,
+      [name]: callback(input[name]),
+    }
+  };
+}
+
+const setName = accessObject('name', (value) =&gt; {
+  return value ? 'updated name' : 'new name';
+});
+
+setName({ name: 'old name' });
+// setName({});
+// setName(undefined);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function accessArray(index, callback) {
+  return (input) =&gt; {
+    if (!Array.isArray(input)) {
+      input = [];
+    }
+
+    return [
+      ...input.slice(0, index),
+      ...Array(Math.max(0, index - input.length)),
+      callback(input[index]),
+      ...input.slice(index + 1),
+    ];
+  };
+}
+
+const setElement3 = accessArray(3, (value) =&gt; {
+  return value ? 'updated index' : 'new index';
+});
+
+setElement3([1, 2, 3, 4, 5]);
+// setElement3([]);
+// setElement3(undefined);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function access(key, callback) {
+  if (typeof key === 'number') {
+    return accessArray(key, callback);
+  } else {
+    return accessObject(key, callback);
+  }
+}
+
+const setName = access('name', (value) =&gt; {
+  return value ? 'updated name' : 'new name';
+});
+
+setName({ name: 'old name' });
+// setName({});
+// setName(undefined);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function access(key, callback) {
+  if (typeof key === 'number') {
+    return accessArray(key, callback);
+  } else {
+    return accessObject(key, callback);
+  }
+}
+
+const setElement3 = access(3, (value) =&gt; {
+  return value ? 'updated index' : 'new index';
+});
+
+setElement3([1, 2, 3, 4, 5]);
+// setElement3([]);
+// setElement3(undefined);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function access(key, callback) {
+  if (typeof key === 'number') {
+    return accessArray(key, callback);
+  } else {
+    return accessObject(key, callback);
+  }
+}
+
+const setFirstUserName = access(0, (user) =&gt; {
+  return access('name', (name) =&gt; {
+    return name ? 'updated name' : 'new name';
+  })(user);
+});
+
+setFirstUserName([
+  { name: 'old name', },
+]);
+// setFirstUserName([]);
+// setFirstUserName(undefined);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setDetailsUserName = access('details', (details) =&gt; {
+  return access('users', (users) =&gt; {
+    return access(0, (user) =&gt; {
+      return access('name', (name) =&gt; {
+        return name ? 'updated name' : 'new name';
+      })(user);
+    })(users);
+  })(details);
+});
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+
+const setDetailsUserName = access('details', (details) =&gt; {
+  return access('users', (users) =&gt; {
+    return access(0, (user) =&gt; {
+      // f((x) => g(x)) === f(g)
+      return access('name', setName)(user);
+    })(users);
+  })(details);
+});
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+
+const setDetailsUserName = access('details', (details) =&gt; {
+  return access('users', (users) =&gt; {
+    return access(0,
+      access('name', setName)
+    )(users);
+  })(details);
+});
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+
+const setDetailsUserName = access('details',
+  access('users',
+    access(0,
+      access('name', setName)
+    )
+  )
+);
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+
+const a1 = access('name', setName);
+const setDetailsUserName = access('details',
+  access('users',
+    access(0,
+      a1
+    )
+  )
+);
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+
+const a1 = access('name', setName);
+const a2 = access(0, a1);
+const setDetailsUserName = access('details',
+  access('users',
+    a2
+  )
+);
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+
+const a0 = setName;
+const a1 = access('name', a0);
+const a2 = access(0, a1);
+const a3 = access('users', a2);
+const a4 = access('details', a3);
+const setDetailsUserName = a4;
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+
+const setDetailsUserName = pipe(
+  (a0) =&gt; access('name', a0),
+  (a1) =&gt; access(0, a1),
+  (a2) =&gt; access('users', a2),
+  (a3) =&gt; access('details', a3),
+)(setName);
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+
+// pipe -&gt; compose, odwrócenie kolejności kluczy
+const setDetailsUserName = compose(
+  (a3) =&gt; access('details', a3),
+  (a2) =&gt; access('users', a2),
+  (a1) =&gt; access(0, a1),
+  (a0) =&gt; access('name', a0),
+)(setName);
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+
+const setDetailsUserName = compose(
+  ...[
+    (a3) =&gt; access('details', a3),
+    (a2) =&gt; access('users', a2),
+    (a1) =&gt; access(0, a1),
+    (a0) =&gt; access('name', a0),
+  ]
+)(setName);
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+
+const curryAccess = (key) =&gt; {
+  return (callback) =&gt; {
+    return access(key, callback);
+  };
+};
+
+const setDetailsUserName = compose(
+  ...[
+    curryAccess('details'),
+    curryAccess('users'),
+    curryAccess(0),
+    curryAccess('name'),
+  ]
+)(setName);
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+
+const curryAccess = (key) =&gt; {
+  return (callback) =&gt; {
+    return access(key, callback);
+  };
+};
+
+const setDetailsUserName = compose(
+  ...[
+    'details',
+    'users',
+    0,
+    'name',
+  ].map(curryAccess)
+)(setName);
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+const props = ['details', 'users', 0, 'name'];
+
+const curryAccess = (key) =&gt; {
+  return (callback) =&gt; {
+    return access(key, callback);
+  };
+};
+
+const setDetailsUserName = compose(
+  ...props.map(curryAccess)
+)(setName);
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+const props = ['details', 'users', 0, 'name'];
+
+const setDetailsUserName = compose(
+  // "array.map" do callbacka przkazuje więcej niż jeden argument,
+  // przez co użycie "curryN" nie jest prawidłowe
+  ...props.map((key) =&gt; (callback) =&gt; {
+    return access(key, callback);
+  })
+)(setName);
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+const props = ['details', 'users', 0, 'name'];
+
+const setDetailsUserName = compose(
+  ...props.map((key) =&gt; (callback) =&gt; {
+    return access(key, callback);
+  })
+)(setName);
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function accessPath(props, callback) {
+  return compose(
+    ...props.map((key) =&gt; (callback) =&gt; {
+      return access(key, callback);
+    })
+  )(callback);
+}
+
+const setName = (name) =&gt; name ? 'updated name' : 'new name';
+const props = ['details', 'users', 0, 'name'];
+
+const setDetailsUserName = accessPath(props, setName);
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function assocPath(props, value) {
+  return compose(
+    ...props.map((key) =&gt; (callback) =&gt; {
+      return access(key, callback);
+    })
+  )(() => value);
+}
+
+const props = ['details', 'users', 0, 'name'];
+const setDetailsUserName = assocPath(props, 'new name');
+
+setDetailsUserName({
+  details: {
+    users: {
+      name: 'old name',
+    },
+  },
+});
+        </textarea>
+      </section>
+
+      <section>
+        <h2>czytelność</h2>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const setDetailsUserName = access('details',
+  access('users',
+    access(0,
+      access('name', (name) =&gt; {
+        return name ? 'updated name' : 'new name';
+      })
+    )
+  )
+);
+
+setDetailsUserName({});
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+const setDetailsUserName = compose(
+  ...['details', 'users', 0, 'name'].map((key) =&gt; {
+    return (callback) =&gt; {
+      return access(key, callback);
+    };
+  })
+)((name) =&gt; {
+  return name ? 'updated name' : 'new name';
+});
+
+setDetailsUserName({});
+        </textarea>
+      </section>
+
+      <section>
+        <img src="css/Just-because-you-can-doesnt-mean-you-should.jpg" alt="Just because you can doesn't mean you should">
+      </section>
+
+      <section>
+        <h2>zastosowania</h2>
+        <ul>
+          <span style="color: limegreen">TAK</span>
+          <ul>
+            <li>synchroniczne przetwarzanie JSONów/XMLów</li>
+            <li>walidacja danych</li>
+            <li>reducery reduxowe</li>
+          </ul>
+          <span style="color: crimson">NIE</span>
+          <ul>
+            <li>cokolwiek asynchronicznego (chyba że do przetwarzania odpowiedzi)</li>
+            <li>ogólna logika aplikacji (obiektowość jest tu znacznie lepsza)</li>
+            <li>operacje intensywnie wykorzystujące branching kodu (duże ilości naraz ifów)</li>
+          </ul>
+        </ul>
+      </section>
+
+      <section>
+        <h2>dla tych, co im życie niemiłe</h2>
+        <p>monady</p>
+        <ul>
+          <li>maybe</li>
+          <li>either</li>
+          <li>validation</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>biblioteki</h2>
+
+        <ul>
+          <li><a href="https://ramdajs.com/">Ramda</a></li>
+          <li><a href="https://lodash.com/">Lodash/Underscore</a></li>
+          <li><a href="https://immutable-js.github.io/immutable-js/">Immutable</a></li>
+          <li><a href="https://gcanti.github.io/fp-ts/">FP-TS</a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+    Reveal.initialize({
+      dependencies: [
+        { src: 'plugin/eval/eval.js' },
+      ],
+      history: true,
+      // center: false,
+    });
+  </script>
+</body>
+</html>

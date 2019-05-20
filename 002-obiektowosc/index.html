@@ -1,0 +1,1163 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Bille-Course - Podstawy JavaScript</title>
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/black.css">
+
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+  <link rel="stylesheet" href="lib/css/eval.css">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section id="start" class="centerx">
+        <ol>
+          <li><a href="#/constructor-start">constructor</a></li>
+          <li><a href="#/this-start">this</a></li>
+          <li><a href="#/vtable-start">virtual table</a></li>
+          <li><a href="#/proto-start">__proto__ / prototype</a></li>
+          <li><a href="#/object-create-start">new vs Object.create</a></li>
+          <li><a href="#/inheritance-start">dziedziczenie</a></li>
+          <li><a href="#/arrow-start">arrow function</a></li>
+          <li><a href="#/sugar-start">syntactic sugar</a></li>
+        </ol>
+      </section>
+
+      <section id="constructor-start">
+        <h1>constructor</h1>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = {};
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let fn = function () { return 0; }
+fn;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() { return 0; }
+fn;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let fn = () =&gt; { return 0; }
+fn;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let fn = () =&gt; 0
+fn;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() { return 0; };
+let a = { fn: fn };
+a.fn();
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let fn = () =&gt; { return 0; };
+let a = { fn: fn };
+a.fn();
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { fn: function () { return 0; } };
+a.fn();
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { fn: () =&gt; { return 0; } };
+a.fn();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {}
+let a = new A();
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {}
+let a = new A();
+a.constructor;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {}
+let a = new A();
+a instanceof A;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  this.propA = 1;
+}
+let a = new A();
+a.propA;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  return 1;
+}
+let a = new A();
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  return 1;
+}
+let a = A();
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  if (!(this instanceof A)) {
+    return new A();
+  }
+}
+let a = new A();
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  if (!(this instanceof A)) {
+    return new A();
+  }
+}
+let a = A();
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = new Array();
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = Array();
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function A(a, b = 2) {
+  this.propA = a;
+  this.propB = b;
+
+  this.fn = function () {
+    return this.propA + this.propB;
+  };
+}
+let a = new A(1);
+a.fn();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = new Date();
+let b = new Date();
+
+a.getTime === b.getTime
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function A(a) {
+  this.propA = a;
+  this.fn = function () {
+    return this.propA;
+  };
+}
+
+let a = new A(1);
+let b = new A(2);
+
+a.fn !== b.fn;
+        </textarea>
+      </section>
+
+      <section id="this-start">
+        <h1>this</h1>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  return this;
+}
+
+fn();
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  return this;
+}
+let a = {};
+a.fn = fn;
+
+a.fn();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  return this;
+}
+let a = {};
+
+fn.call(a);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  return this;
+}
+let a = {};
+
+fn.apply(a);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  return this;
+}
+let a = {};
+let boundFn = fn.bind(a);
+
+boundFn();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  return this;
+}
+let a = {};
+let boundFn = fn.bind(a);
+
+log("boundFn", boundFn());
+log("fn", fn());
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  return this;
+}
+let a = { propA: 1 };
+let b = { propB: 2 };
+let boundFn = fn.bind(a);
+
+log(boundFn());
+
+boundFn = boundFn.bind(b);
+
+log(boundFn());
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  return this;
+}
+let a = { propA: 1 };
+let b = { propB: 2 };
+let boundFn = fn.bind(a);
+
+log(boundFn());
+
+boundFn = fn.bind(b);
+
+log(boundFn());
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  return this;
+}
+let a = { propA: 1 };
+let b = { propB: 2 };
+let boundAFn = fn.bind(a);
+let boundBFn = fn.bind(b);
+
+log(boundAFn());
+log(boundBFn());
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = {
+  fn: function () {
+    return this;
+  },
+};
+let callback = a.fn;
+
+log("a.fn", a.fn());
+log("callback", callback());
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn(arg1, arg2) {
+  log(arg1, arg2);
+  return this;
+}
+let a = {};
+
+fn.call(a, 1, 2);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn(arg1, arg2) {
+  log(arg1, arg2);
+  return this;
+}
+let a = {};
+
+fn.apply(a, [1, 2]);
+        </textarea>
+      </section>
+
+      <section id="vtable-start">
+        <h1>virtual table</h1>
+
+        <small>C-style OOP</small>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn1(self) { return self.propA + 1; };
+function fn2(self) { return self.propA + 2; };
+
+let a = {
+  fn1: fn1, // &lt;- 1
+  fn2: fn2,
+  propA: 1,
+};
+
+a.fn1(a); // &lt;- 2
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn1(self) { return self.propA + 1; };
+function fn2(self) { return self.propA + 2; };
+
+let vtable = { fn1: fn1, fn2: fn2 }; // &lt;- 1
+
+let a = {
+  vtable: vtable, // &lt;- 2
+  propA: 1,
+};
+
+a.vtable.fn1(a); // &lt;- 3
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn1(self) { return self.propA + 1; };
+function fn2(self) { return self.propA + 2; };
+function fn2Alt(self) { return self.propA + 22; };
+
+let vtableA = { fn1: fn1, fn2: fn2 };
+let vtableB = { fn1: fn1, fn2: fn2Alt }; // &lt;- 1: fn2Alt
+
+let a = {
+  vtable: vtableB, // &lt;- 2: vtableB &lt;=&gt; vtableB
+  propA: 1,
+};
+
+a.vtable.fn2(a);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn1(self) { return self.propA + 1; };
+function fn2(self) { return self.propA + 2; };
+function fn2Alt(self) { return self.propA + 22; };
+
+let vtableA = { fn1: fn1, fn2: fn2 };
+let vtableB = {
+  ...vtableA, // &lt;- 1: spread
+  fn2: fn2Alt // &lt; - 2: override
+};
+
+let a = {
+  vtable: vtableA, // &lt;- 3
+  propA: 1,
+};
+
+log(a.vtable.fn2(a));
+
+a.vtable = vtableB; // &lt;- 4
+
+log(a.vtable.fn2(a));
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn1(self) { return self.propA + 1; };
+function fn2(self) { return self.propA + 2; };
+function fn2Alt(self) { return self.propA + 22; };
+
+let vtable = { fn1: fn1, fn2: fn2 };
+
+let a = {
+  vtable: vtable,
+  propA: 1,
+};
+
+log(a.vtable.fn2(a));
+
+vtable.fn2 = fn2Alt; // &lt;- 1
+
+log(a.vtable.fn2(a));
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn1(self) { return self.propA + 1; };
+function fn2(self) { return self.propA + 2; };
+function fn2Alt(self) { return self.propA + 22; };
+
+let vtable = { fn1: fn1, fn2: fn2 };
+
+let a = { vtable: vtable, propA: 1 };
+let b = { vtable: vtable, propA: 100 };
+
+log(a.vtable.fn2(a), b.vtable.fn2(b));
+
+vtable.fn2 = fn2Alt; // &lt;- 1
+
+log(a.vtable.fn2(a), b.vtable.fn2(b));
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn1(self) { return self.propA + 1; };
+function fn2(self) { return self.propA + 2; };
+function fn2Alt(self) { return self.propA + 22; };
+
+let vtable = { fn1: fn1, fn2: fn2 };
+
+let a = { vtable: vtable, propA: 1 };
+let b = { vtable: vtable, propA: 100 };
+
+log(a.vtable.fn2(a), b.vtable.fn2(b));
+
+a.vtable.fn2 = fn2Alt; // &lt;- 1: a.vtable === b.vtable
+
+log(a.vtable.fn2(a), b.vtable.fn2(b));
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn1(self) { return self.propA + 1; };
+function fn2(self) { return self.propA + 2; };
+function fn2Alt(self) { return self.propA + 22; };
+
+let vtableA = { fn1: fn1, fn2: fn2 };
+let vtableB = { ...vtableA, fn2: fn2Alt };
+
+let a = { vtable: vtableA, propA: 1 }; // &lt;- 1: vtableA
+let b = { vtable: vtableB, propA: 100 }; // &lt;- 2: vtableB
+
+a.vtable.fn2(b); // &lt;- 3: self -&gt; b
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn1(self) { return self.propA + 1; };
+function fn2(self) { return self.propA + 2; };
+function fn2AltC(self) { return self.propC + 3; };
+
+let vtableA = { fn1: fn1, fn2: fn2 };
+let vtableC = { ...vtableA, fn2: fn2AltC };
+
+let a = { vtable: vtableA, propA: 1 }; // &lt;- 1: propA
+let c = { vtable: vtableC, propC: 100 }; // &lt;- 2: propC
+
+a.vtable.fn2(c); // &lt;- 3: self -&gt; c
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn1(self) { return self.propA + 1; };
+function fn2ObjA(self) { return self.objA.propA + 2; };
+function fn2AltC(self) { return self.propC + 3; };
+
+let vtableA = { fn1: fn1, fn2: fn2ObjA };
+let vtableC = { ...vtableA, fn2: fn2AltC };
+
+let a = { vtable: vtableA, objA: { propA: 1 } }; // &lt;- 1
+let c = { vtable: vtableC, propC: 100 }; // &lt;- 2
+
+a.vtable.fn2(c); // &lt;- 3: self -&gt; c
+        </textarea>
+      </section>
+
+      <section id="proto-start">
+        <h1>__proto__ / prototype</h1>
+      </section>
+
+      <section>
+        <p>a.__proto__ === Object.getPrototypeOf(a)</p>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() { return this.propA; }
+function A() {
+  this.propA = 1;
+}
+
+let a = new A();
+a.__proto__.fn = fn; // a.__proto__ &lt;=&gt; a.vtable
+
+a.__proto__.fn.call(a); // a.vtable.fn(a)
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() { return this.propA; }
+function A() {
+  this.propA = 1;
+}
+
+let a = new A();
+a.__proto__.fn = fn;
+
+a.fn();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() { return this.propA; }
+function A() {
+  this.propA = 1;
+}
+A.prototype.fn = fn; // A.prototype
+
+let a = new A();
+
+a.fn();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  this.propA = 1;
+}
+
+let a = new A();
+
+a.__proto__ === A.prototype
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  this.propA = 1;
+}
+
+let a = new A();
+a.__proto__.fn = function () { return this.propA; };
+
+A.prototype.fn;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  this.propA = 1;
+}
+
+let a = new A();
+
+a.propA;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {}
+A.prototype.propA = 1;
+
+let a = new A();
+
+a.propA;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {}
+A.prototype.objA = {
+  propA: 1,
+};
+
+let a = new A();
+let b = new A();
+
+b.objA.propA = 2;
+a.objA.propA;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  this.objA = {
+    propA: 1,
+  };
+}
+
+let a = new A();
+let b = new A();
+
+b.objA.propA = 2;
+a.objA.propA;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  return this;
+}
+function A() {
+  this.propA = 1;
+}
+A.prototype.fn = fn;
+
+let a = new A();
+
+a.fn();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = new Date();
+let b = new Date();
+
+a.getTime === b.getTime
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function A(a) {
+  this.propA = a;
+  this.fn = function () {
+    return this.propA;
+  };
+}
+
+let a = new A(1);
+let b = new A(2);
+
+a.fn !== b.fn;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = new Date();
+let b = new Date();
+
+a.getTime === b.getTime
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  return this.propA;
+}
+function A(a) {
+  this.propA = a;
+}
+A.prototype.fn = fn;
+
+let a = new A(1);
+let b = new A(2);
+
+a.fn === b.fn;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  return this.propA;
+}
+function A(a) {
+  this.propA = a;
+}
+function B() {
+  log('constructor B');
+}
+A.prototype.constructor = B;
+
+let a = new A(1);
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  return this.propA;
+}
+function A(a) {
+  this.propA = a;
+}
+function B() {
+  log('constructor B');
+}
+A.prototype.constructor = B;
+
+let a = new A(1);
+log('a instanceof A', a instanceof A);
+log('a instanceof B', a instanceof B);
+a;
+        </textarea>
+      </section>
+
+      <section id="object-create-start">
+        <h1>new vs Object.create</h1>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  log('constructor');
+  this.propA = 1;
+}
+A.prototype.propB = 2;
+A.prototype.fn = function () { return { a: this.propA, b: this.propB }; };
+
+let a = new A();
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  log('constructor');
+  this.propA = 1;
+}
+A.prototype.propB = 2;
+A.prototype.fn = function () { return { a: this.propA, b: this.propB }; };
+
+let a = Object.create(A.prototype);
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  log('constructor');
+  this.propA = 1;
+}
+A.prototype.propB = 2;
+A.prototype.fn = function () { return { a: this.propA, b: this.propB }; };
+
+let a = new A();
+a.fn();
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  log('constructor');
+  this.propA = 1;
+}
+A.prototype.propB = 2;
+A.prototype.fn = function () { return { a: this.propA, b: this.propB }; };
+
+let a = Object.create(A.prototype);
+a.fn();
+        </textarea>
+      </section>
+
+      <section id="inheritance-start">
+        <h1>dziedziczenie</h1>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn1(self) { return self.propA + 1; };
+function fn2(self) { return self.propA + 2; };
+
+let vtableA = { fn1: fn1 };
+let vtableB = {
+  ...vtableA,
+  fn2: fn2
+};
+
+let a = {
+  vtable: vtableB,
+  propA: 1,
+};
+
+a.vtable.fn2(a);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn1() { return this.propA + 1; };
+function fn2() { return this.propA + 2; };
+
+function A() { log('A'); }
+A.prototype.propA = 1;
+A.prototype.fn1 = fn1;
+
+function B() { log('B'); }
+B.prototype = {
+  ...A.prototype,
+  constructor: B, // opcjonalnie
+  fn2: fn2,
+};
+
+let a = new B();
+a.fn2();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn1() { return this.propA + 1; };
+function fn2() { return this.propA + 2; };
+
+function A() { log('A'); }
+A.prototype.propA = 1;
+A.prototype.fn1 = fn1;
+
+function B() { log('B'); }
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B; // opcjonalnie
+B.prototype.fn2 = fn2;
+
+let a = new B(1);
+a.fn2();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn1() { return this.propA + 1; };
+function fn2() { return this.propA + this.propB; };
+
+function A(arg1) {
+  log('A', this);
+  this.propA = arg1;
+}
+A.prototype.fn1 = fn1;
+
+function B(arg1) {
+  A.call(this, arg1); // super(arg1)
+  log('B', this);
+  this.propB = 100;
+}
+B.prototype = {
+  ...A.prototype,
+  constructor: B, // opcjonalnie
+  fn2: fn2,
+};
+
+let a = new B(1);
+a.fn2();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() { this.propA = 1; }
+A.prototype.fn1 = function () {
+  log('A fn1');
+  return this.propA;
+};
+
+function B() {
+  A.call(this);
+}
+B.prototype = {
+  ...A.prototype,
+  constructor: B,
+  propB: 100,
+  fn1: function () { // override fn1
+    log('B fn1');
+    return A.prototype.fn1.call(this) + this.propB;
+  },
+};
+
+let a = new B(1);
+a.fn1();
+        </textarea>
+      </section>
+
+      <section id="arrow-start">
+        <h1>arrow function</h1>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  this.propA = 1;
+  this.fn = () => {
+    log('this', this);
+    return this.propA;
+  };
+}
+
+let a = new A();
+a.fn();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {}
+A.prototype.propA = 1;
+A.prototype.fn = () => {
+  log('this', this);
+  return this.propA;
+};
+
+let a = new A();
+a.fn();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+const fn = () => {
+  log('this', this);
+  return this.propA;
+};
+
+function A() {}
+A.prototype.propA = 1;
+
+let a = new A();
+fn.call(a);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  this.propA = 1;
+}
+A.prototype.fn = function () {
+  return function () { // function
+    log('this', this);
+    return this.propA;
+  };
+};
+
+let a = new A();
+let b = {
+  propB: 100,
+  callback: a.fn()
+};
+b.callback();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function A() {
+  this.propA = 1;
+}
+A.prototype.fn = function () {
+  return () => { // arrow function
+    log('this', this);
+    return this.propA;
+  };
+};
+
+let a = new A();
+let b = {
+  propB: 100,
+  callback: a.fn()
+};
+b.callback();
+        </textarea>
+      </section>
+
+      <section id="sugar-start">
+        <h1>syntatic sugar</h1>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+class A {
+  constructor() {
+    this.propA = 1;
+  }
+
+  fn() {
+    return this.propA;
+  }
+}
+
+let a = new A();
+a.fn();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+class A {
+  constructor() {
+    this.propA = 1;
+  }
+
+  fn() {
+    return this.propA;
+  }
+}
+
+class B extends A {
+  constructor() {
+    super();
+    this.propB = 100;
+  }
+
+  fn() {
+    return super.fn() + this.propB;
+  }
+}
+
+let a = new B();
+a.fn();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let A = class {
+  constructor() {
+    this.propA = 1;
+  }
+
+  fn() {
+    return this.propA;
+  }
+}
+
+let B = class extends A {
+  constructor() {
+    super();
+    this.propB = 100;
+  }
+
+  fn() {
+    return super.fn() + this.propB;
+  }
+}
+
+let a = new B();
+a.fn();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+class A {
+  constructor() {
+    this.propA = 1;
+  }
+
+  fn() {
+    log('this', this);
+    return this.propA;
+  }
+}
+
+let a = new A();
+let b = { propB: 100 };
+a.fn.call(b);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+class A {
+  constructor() {
+    this.internalPropA = 1;
+  }
+
+  get propA() {
+    log('getter');
+    return this.internalPropA;
+  }
+
+  set propA(value) {
+    log('setter', value);
+    this.internalPropA = value;
+  }
+}
+
+let a = new A();
+a.propA = 2;
+a.propA;
+        </textarea>
+      </section>
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+    Reveal.initialize({
+      dependencies: [
+        { src: 'plugin/eval/eval.js' },
+      ],
+      history: true,
+      // center: false,
+    });
+  </script>
+</body>
+</html>

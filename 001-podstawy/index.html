@@ -1,0 +1,1407 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Bille-Course - Podstawy JavaScript</title>
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/black.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+  <link rel="stylesheet" href="lib/css/eval.css">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section id="start">
+        <ol>
+          <li><a href="#/knowledge-start">Źródła wiedzy</a></li>
+          <li><a href="#/types-start">Typy danych</a></li>
+          <li><a href="#/syntax-start">Syntax</a></li>
+          <li><a href="#/tables-start">Tablice</a></li>
+          <li><a href="#/objects-start">Obiekty</a></li>
+          <li><a href="#/functions-start">Funkcje</a></li>
+          <li><a href="#/hoisting-start">Hoisting</a></li>
+        </ol>
+      </section>
+
+      <section id="knowledge-start">
+        <h3>Źródła wiedzy</h3>
+
+        <ul>
+        <li><a href="https://developer.mozilla.org/">MDN Web Docs</a></li>
+          <li><a href="https://caniuse.com/">Can I Use</a></li>
+          <li><a href="https://stackoverflow.com/">stackoverflow</a></li>
+        </ul>
+      </section>
+
+      <section id="types-start">
+        <h3>Typy danych</h3>
+      </section>
+
+      <section>
+        <div class="grid grid-2">
+          <div>
+            <p>Proste</p>
+            <ul>
+              <li>null</li>
+              <li>undefined</li>
+              <li>number</li>
+              <li>string</li>
+              <li>boolean</li>
+            </ul>
+          </div>
+          <div>
+            <p>Złożone</p>
+            <ul>
+              <li>object</li>
+              <li>array</li>
+              <li>function</li>
+              <li>symbol</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <img src="css/null undefined.png" alt="null !== undefined">
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = null; a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = undefined; a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = 1.5; a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = 'string'; a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = false; a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { a: 1, b: 2 }; a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [1, 2, 3]; a;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = function () { return 0; }; a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = function named() { return 0; }; a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = () => { return 0; }; a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = () => 0; a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = function* () { yield 1; }; a;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = Symbol.iterator; a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = Symbol('moj symbol'); a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = Symbol.for('moj symbol'); a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = Symbol('foo');
+let b = Symbol('foo');
+a === b;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = Symbol.for('foo');
+let b = Symbol.for('foo');
+a === b;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+typeof null;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+typeof undefined;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+typeof 1.5;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+typeof 'string';
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+typeof false;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+typeof { a: 1, b: 2 };
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+typeof [1, 2, 3];
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+typeof function () { return 0; };
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+typeof function named() { return 0; };
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+typeof (() => { return 0; });
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+typeof (() => 0);
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+typeof function* () { yield 1; };
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+typeof Symbol.for('foo');
+        </textarea>
+      </section>
+
+      <section id="syntax-start">
+        <h3>Syntax</h3>
+
+        <h4>Deklarowanie zmiennych</h4>
+      </section>
+
+      <section>
+        <textarea class="eval" data-no-strict autocomplete="off" rows="1">
+a = 1;
+a;
+        </textarea>
+
+        <textarea class="eval" data-no-strict autocomplete="off" rows="1">
+"use strict";
+a = 1;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+window.a = 1;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+var a = 1;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = 1;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+const a = 1;
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" data-no-strict autocomplete="off" rows="1">
+a = 1; a = 2;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+window.a = 1; window.a = 2;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+var a = 1; var a = 2;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = 1; let a = 2;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+const a = 1 const a = 2;
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+var a = 1;
+a = 2;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = 1;
+a = 2;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+const a = 1
+a = 2;
+        </textarea>
+      </section>
+
+      <section id="syntax-operators-start">
+        <h3>Syntax</h3>
+
+        <h4>Operatory</h4>
+      </section>
+
+      <section>
+        <h4>Logiczne</h4>
+        <textarea class="eval" autocomplete="off" rows="1">
+false || true;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+false && true;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+0 || 4;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+2 && 4;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+!2;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+!!0 // !(!0);
+        </textarea>
+      </section>
+
+      <section>
+        <h4>Porównania #1</h4>
+        <textarea class="eval" autocomplete="off" rows="1">
+1 == '1';
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+1 === '1';
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+1 != '1';
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+1 !== '1';
+        </textarea>
+      </section>
+
+      <section>
+        <h4>Porównania #2</h4>
+        <textarea class="eval" autocomplete="off" rows="1">
+null == undefined;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+null === undefined;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+null == false;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+undefined == false;
+        </textarea>
+      </section>
+
+      <section>
+        <h4>Porównania #3</h4>
+        <textarea class="eval" autocomplete="off" rows="1">
+NaN == NaN;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+NaN === NaN;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+isNaN(NaN);
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+1/'a' == NaN;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+isNaN(0 / 0);
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+isNaN(1 * 'a');
+        </textarea>
+      </section>
+
+      <section>
+        <h4>Porównania #4</h4>
+        <textarea class="eval" autocomplete="off" rows="1">
+Infinity === Infinity;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+-Infinity !== Infinity;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+1/0 === Infinity;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+-1/0 === -Infinity;
+        </textarea>
+      </section>
+
+      <section>
+        <h4>Matematyczne</h4>
+        <ul>
+          <li>
+            a * b, a / b, a + b, a - b, a % b
+          <textarea class="eval" autocomplete="off" rows="1">0.1 + 0.2</textarea>
+          </li>
+          <li>
+            ** (ES7)
+          <textarea class="eval" autocomplete="off" rows="1">2 ** 4 // Math.pow(2, 4)</textarea>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h4>Rzutowania (koercja)</h4>
+        <ul>
+          <li>
+            Na liczby: +a
+          <textarea class="eval" autocomplete="off" rows="1">
++'2';
+          </textarea>
+          </li>
+          <li>
+            Na "undefined": void a
+          <textarea class="eval" autocomplete="off" rows="1">
+void 0;
+          </textarea>
+          </li>
+          <li>
+            Na string: ''+a
+          <textarea class="eval" autocomplete="off" rows="1">
+''+true;
+          </textarea>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h4>Złączenia stringów</h4>
+        <textarea class="eval" autocomplete="off" rows="1">
+'1' + 1;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+1 + '1';
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+'1' + 2 + 3;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+1 + 2 + '3';
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+'a=' + 1 + ' b=' + true + ' c=' + null;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+'a=' + [1, 2, 3];
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+'a=' + { a: 1, b: 2, c: 3 };
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+1 | 2;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+1 & 2;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+3 ^ 4;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+~4 // -Math.floor(a) - 1;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+1 &lt;&lt; 2;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+4 &gt;&gt; 1;
+        </textarea>
+      </section>
+
+      <section>
+        <ul>
+          <li>||=, &&=, !=</li>
+          <li>*=, /=, +=, -=, %=, **= (ES7)</li>
+          <li>|=, &=, ^=, &lt;&lt;=, &gt;&gt;=</li>
+        </ul>
+      </section>
+
+      <section>
+        <p>Przecinek</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = 1, 2;
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <p>Zastosowania</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let arg = 'treść';
+let param = arg || '';
+param;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let arg = null; // false, 0, '', undefined
+let param = arg || '';
+param;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let arg = 1.91268313;
+let param = arg | 0; // pojedyńczy "|"
+param;
+        </textarea>
+      </section>
+
+      <section id="syntax-loops-start">
+        <h3>Syntax</h3>
+
+        <h4>Pętle</h4>
+      </section>
+
+      <section>
+        <ul>
+          <li>for</li>
+          <li>do...while</li>
+          <li>while</li>
+          <li>for...in</li>
+          <li>for...of</li>
+        </ul>
+      </section>
+
+      <section>
+        <h4>for...in</h4>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+for (let x in { a: 1, b: 2, c: 3 }) {
+  log(x);
+}
+        </textarea>
+      </section>
+
+      <section>
+        <h4>for...in</h4>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+for (let x in [1, 2, 3]) {
+  log(x);
+}
+        </textarea>
+      </section>
+
+      <section>
+        <h4>for...in</h4>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let tablica = [1, 2, 3];
+tablica.prop = 4;
+for (let x in tablica) {
+  log(x);
+}
+        </textarea>
+      </section>
+
+      <section>
+        <h4>for...of</h4>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+for (let x of [1, 2, 3]) {
+  log(x);
+}
+        </textarea>
+      </section>
+
+      <section>
+        <h4>for...of</h4>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+for (let x of { a: 1, b: 2, c: 3 }) {
+  log(x);
+}
+        </textarea>
+      </section>
+
+      <section id="tables-start">
+        <h3>Tablice</h3>
+      </section>
+
+      <section>
+        <p>Inicjalizacja</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [];
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = new Array();
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = Array();
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <p>Inicjalizacja z długością</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = []; a.length = 10;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = []; a[9] = 10;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = new Array(10);
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = Array(10);
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <p>Puste wartości</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = []; a.length = 10;
+a.map(() => true);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = []; a[9] = 10;
+a.map(() => true);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = new Array(10).map(() => true);
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = Array(10).map(() => true);
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = []; a.length = 10;
+a.fill(null).map(() => true);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = []; a[9] = 10;
+a.fill(null).map(() => true);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = new Array(10).fill(null).map(() => true);
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [... Array(10)].map(() => true);
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <p>Referencje i płytkie kopie</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [];
+let b = a;
+a === b;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [];
+let b = [];
+a !== b;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [];
+a !== [];
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [];
+let b = a;
+a[0] = 1;
+b[1] = 2;
+log('a', a);
+log('b', b);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [];
+let b = [];
+a[0] = 1;
+b[1] = 2;
+log('a', a);
+log('b', b);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [1];
+let b = a.slice();
+a !== b;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [1];
+let b = [].concat(a);
+a !== b;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [1];
+let b = [...a];
+a !== b;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [[1], [2, 3]];
+let b = a.slice();
+a[0] === b[0]
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [[1], [2, 3]];
+let b = [...a];
+a[0] === b[0]
+        </textarea>
+      </section>
+
+      <section>
+        <p>Operator spread</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [1, 2, 3];
+let b = [0, ...a, 4, 5];
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [0, ...[1, 2, 3], 4, 5];
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn () { return [1, 2, 3]; }
+let a = [...[], 0, ...fn()];
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [...[], 0, ...(true ? [1, 2, 3] : [])];
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = null;
+let b = [...a];
+b;
+        </textarea>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = undefined;
+let b = [...a];
+b;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = {};
+let b = [...a];
+b;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = true;
+let b = [...a];
+b;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = new Map();
+a.set("a", 1);
+a.set("b", 2);
+let b = [...a];
+b;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = new Map();
+a.set("a", 1);
+a.set("b", 2);
+let b = Array.from(a);
+b;
+        </textarea>
+      </section>
+
+      <section>
+        <p>Spread i argumenty funkcji</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+fn = (a, b, c, d) => { log(a, b, c, d); }
+let a = [2, 3];
+fn(1, ...a, 4);
+        </textarea>
+      </section>
+
+      <section>
+        <p>Dodawanie elementów</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [2, 3];
+a = [...a, 1];
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [2, 3];
+a.push(1);
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [2, 3];
+a = [1, ...a];
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [2, 3];
+a.unshift(1);
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <p>Usuwanie elementów</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [1, 2, 3, 4, 5];
+delete a[2];
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [1, 2, 3, 4, 5];
+a.splice(2, 1); // 2 - indeks poczatkowy, 1 - ilosc elementów
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [1, 2, 3, 4, 5];
+let b = a.filter((_, i) => i !== 2);
+b;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [1, 2, 3, 4, 5];
+let b = [...a.slice(0, 2), ...a.slice(3)];
+b;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [1, 2, 3, 4, 5];
+let b = [...a]; b.splice(2, 1);
+b;
+        </textarea>
+      </section>
+
+      <section>
+        <p>Czyszczenie tablicy</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [1, 2, 3, 4, 5];
+a = [];
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [1, 2, 3, 4, 5];
+a.splice(0);
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = [1, 2, 3, 4, 5];
+a.length = 0;
+a;
+        </textarea>
+      </section>
+
+      <section id="objects-start">
+        <h3>Obiekty</h3>
+      </section>
+
+      <section>
+        <p>Tworzenie</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = {};
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { a: 1 };
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { 0: 1 };
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { true: 1 };
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { null: 1 };
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { [true]: 1 }
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { [null]: 1 }
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let arr = [1, 2, 'a'];
+let a = { [arr]: 1 }
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { [{ b: 2 }]: 1 }
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { ['timestamp-' + Date.now()]: 1 }
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <p>Dostęp</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { [true]: 1, 'true': 2 };
+a.true;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { [null]: 1, 'null': 2 };
+a.null;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let arr = [1, 2, 'a'];
+let a = { [arr]: 1, '1,2,a': 2 };
+a[[1, 2, 'a']] // a['1,2,a']
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { [{ b: 2 }]: 1, [{ c: 3 }]: 2 };
+a[{ b: 2 }] // a['[object Object]']
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { ['timestamp-' + Math.random()]: 1 };
+a['timestamp-' + Math.random()]
+        </textarea>
+      </section>
+
+      <section>
+        <p>Przypisywanie</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = {};
+a.propA = 1
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = {};
+a['propA'] = 1;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let arr = [1, 2, 'a'];
+let a = {};
+a[arr] = 1;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = {};
+a[{ b: 2 }] = 1;
+a;
+        </textarea>
+      </section>
+
+      <section>
+        <p>Destrukturyzacja i operator rest</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let obj = { a: 1, b: 2, c: "3", d: [4] };
+let { a, d } = obj;
+log("a", a);
+log("d", d);
+obj;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let obj = { a: 1, b: 2, c: "3", d: [4] };
+let { a, d, ...rest } = obj;
+log("a", a);
+log("d", d);
+log("rest", rest);
+obj
+        </textarea>
+      </section>
+
+      <section>
+        <p>Pętle</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let obj = { a: 1, b: 2 };
+for (let key in obj) { log(key, obj[key]); }
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+for (let value of { a: 1, b: 2 }) {}
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let obj = { a: 1, b: 2 };
+for (let key of Object.keys(obj)) { log(key, obj[key]); }
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let obj = { a: 1, b: 2 };
+for (let pair of Object.entries(obj)) { log(pair); }
+        </textarea>
+      </section>
+
+      <section>
+        <p>Klucze i wartości</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let obj = { a: 1, b: 2 };
+Object.keys(obj);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let obj = { a: 1, b: 2 };
+Object.entries(obj);
+        </textarea>
+      </section>
+
+      <section>
+        <p>Usuwanie kluczy</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { a: 1, b: 2, c: 3 };
+delete a.c;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { a: 1, b: 2, c: 3 };
+let { c, ...b } = a;
+b;
+        </textarea>
+      </section>
+
+      <section>
+        <p>Kopiowanie</p>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { a: 1 };
+let b = a; b.a = 2;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+a = { a: 1 };
+b = { ...a }; b.a = 2;
+a;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+a = { a: 1 };
+b = Object.assign({}, a);
+b;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = { a: 1 };
+let b = Object.create(a);
+b;
+        </textarea>
+      </section>
+
+      <section id="functions-start">
+        <h3>Funkcje</h3>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() { return 1; }
+fn();
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let fn = function () { return 1; };
+fn();
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let fn = () => { return 1; };
+fn();
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+let fn = () => 1;
+fn();
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn(a, b = 2) { return [a, b]; }
+fn(1);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn(a = 1, b = 2) { return [a, b]; }
+fn(undefined, 1);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn(a = 1, b = 2) { return [a, b]; }
+fn(null, 1);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn(a = 1, b) { return [a, b]; }
+fn(undefined, 1);
+        </textarea>
+      </section>
+
+      <section id="hoisting-start">
+        <h3>Hoisting i scope</h3>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+if (false) {
+  var a = 1;
+  log('#if', a);
+} else {
+  var a = 2;
+  log('#else', a);
+}
+log(a);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+log(a);
+if (false) {
+  var a = 1;
+  log('#if', a);
+} else {
+  var a = 2;
+  log('#else', a);
+}
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+var a;
+if (false) {
+  a = 1;
+  log('#if', a);
+} else {
+  a = 2;
+  log('#else', a);
+}
+log(a);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+var a;
+log(a);
+if (false) {
+  a = 1;
+  log('#if', a);
+} else {
+  a = 2;
+  log('#else', a);
+}
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+if (false) {
+  let a = 1;
+  log('#if', a);
+} else {
+  let a = 2;
+  log('#else', a);
+}
+log(a);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+log(a);
+if (false) {
+  let a = 1;
+  log('#if', a);
+} else {
+  let a = 2;
+  log('#else', a);
+}
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+if (false) {
+  const a = 1;
+  log('#if', a);
+} else {
+  const a = 2;
+  log('#else', a);
+}
+log(a);
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+log(a);
+if (false) {
+  const a = 1;
+  log('#if', a);
+} else {
+  const a = 2;
+  log('#else', a);
+}
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() { return 1; }
+log(fn);
+log(fn());
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+log(fn);
+log(fn());
+function fn() { return 1; }
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+var fn = function() { return 1; }
+log(fn);
+log(fn());
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+log(fn);
+log(fn());
+var fn = function() { return 1; }
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let fn = function() { return 1; }
+log(fn);
+log(fn());
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+log(fn);
+log(fn());
+let fn = function() { return 1; }
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  log('#fn pre', a);
+  if (true) {
+    var a = 1;
+  }
+  log('#fn post', a);
+}
+fn();
+log(a);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  var a;
+  log('#fn pre', a);
+  if (true) {
+    a = 1;
+  }
+  log('#fn post', a);
+}
+fn();
+log(a);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+var a = 0;
+function fn() {
+  log('#fn pre', a);
+  if (true) {
+    var a = 1;
+  }
+  log('#fn post', a);
+}
+fn();
+log(a);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+function fn() {
+  log('#fn pre', a);
+  if (true) {
+    let a = 1;
+  }
+  log('#fn post', a);
+}
+fn();
+log(a);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+let a = 0;
+function fn() {
+  log('#fn pre', a);
+  if (true) {
+    let a = 1;
+  }
+  log('#fn post', a);
+}
+fn();
+log(a);
+        </textarea>
+      </section>
+
+      <section>
+        <textarea class="eval" autocomplete="off" rows="1">
+for (var i = 0; i &lt; 10; i++) {
+  // ...
+}
+i
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" rows="1">
+for (let i = 0; i &lt; 10; i++) {
+  // ...
+}
+i
+        </textarea>
+      </section>
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+    Reveal.initialize({
+      dependencies: [
+        { src: 'plugin/eval/eval.js' },
+      ],
+      history: true,
+      // center: false,
+    });
+  </script>
+</body>
+</html>
