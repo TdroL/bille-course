@@ -1,83 +1,87 @@
-01.
-02. o historii JavaScriptu: powstał w dwa tygodnie. Koniec
-03.
-04. proste - kopie przez wartość, złożone - kopie przez referencje; string jest prawdopodobnie kopiowany
-05. obowiązkowy mem
-06. słowo o wbudowanej konsoli
-07.
-08. symbole sa unikalne; kilka jest predefiniowanych
-09. Symbol.for() posiada globalny zbiór, Symbol(wartość) nie doda do tego mappingu
-10. operator typeof; null, undefined i array zachowują się nietypowo; null - brak obiektu, undefiend - brak wartości
-11. funkcje zachowują się w oczekiwany sposób
-12.
-13.
-14. słowo o background w wpaski - tryb non-strict; włączamy ten tryb na poziomie scope'a; `window.a` w node jako `global.a`; var/let/const wytłumaczony będzie za chwile
-15. redeklaracja zmiennej
-16. nadpisywanie zmiennej
-17.
-18. operatory `&&` i `||` nie rzutują na booleana, tylko zwracają prawdziwie-podobną wartość; `!` rzutuje na booleana; rzutowanie na booleana można wymusić przez podwójną negację
-19. znak `===` porównuje też typy watrości; jeżeli `==` zwróci true, to nie znaczy, że `===` zwróci true; jeżeli `!=` zwróci true, to nie znaczy, że `!==` zwróci true
-20.
-21.
-22.
-23. operacje matematyczne typu number i string mogą zwrócić NaN; wyjątek to dodawanie
-24. pusty string jest interpretowany jako 0
-25. IEEE 754
-26.
-27. zawsze trzeba escapować backslash
-28.
-29.
-30. rzutują na integera
-31.
-32.
-33.
-34.
-35. skupimy się na for...in i for...of
-36. for...in na obiekcie zwraca klucze
-37. for...in na obiekcie zwraca indeksy jako stringi; lepiej użyc zwykłego for
-38. skoro array jest obiektem, to for...in też będzie iterował po dodanych kluczach
-39.
-40. o tym jak się iterować po obiektach będzie później (slajd 66)
-41.
-42.
-43. rekomendowane []
-44. rekomendowane Array(number)
-45. puste wartości na konsolach mogą być reprezentowane różnie; krótko opisać array.map()
-46.
-47.
-48. tablice sa kopiowane przez referencje; 1. przykład a i b modyfikują tę samą tablice, w 2. modyfikują osobne
-49. kopiowanie tablicy, o spreadzie będzie za dwa slajdy
-50. tablice wewnątrz tablicy są nadal kopiowane prezez referencje
-51.
-52.
-53. wartości iterowalne można przemienić na tablice przez funkcje Array.from()
-54. wartości iterowalne i spread można wykorzystać w wywoływaniu funkcji
-55.
-56. splice: `2` - indeks początkowy, `1` - ilosc elementów (opcjonalne, domyślnie `a.length`)
-57. filter: callback dostaje 3 argumenty; slice: `0` i `3` - indeks początkowy, `2` - ilosc elementów (opcjonalne, domyślnie `a.length`)
-58.
-59.
-60. klucze staja sie stringami
-61. ignoruj tryb non-strict; parsowanie bloku ma priorytet przed tworzeniem obiektu
-62. nawiasy kwadratowe pozwalaja na obilczenie wartosci klucza; wynik musi być stringiem, inaczej jest rzutowany
-63. klucze zdefiniowane później nadpisują te wcześniejsze; trzeba uważać przy zwracanych wynikach, lub to mądrze wykorzystać; array'e sa joinowane; obiekty castowane do '[object Object]'; uwaga na funkcje, których wynik się zmienia
-64.
-65. destrukturyzacja nie modyfikuje obiektu źródłowego
-66. 1. for...in; 2. for...of
-67. co zwracją Object.keys() i Object.entries()
-68.
-69. tak jak tablice, obiekty są kopiowane przez referencje; do wykonania płytkiej kopii potrzeba albo spread/rest, albo Object.assign(); Object.create() tworzy nowy obiekt na podstawie źródłowego, przez co wsolne property będzie się tam znajdowało
-70.
-71. różnica między function a arrow function będzie dopiero pokazana przy obiektowości
-72. domyślne wartości nie muszą być na końcu listy argumentów; undefined pozwoli na defaultową wartość, ale null nie
-73.
-74. var - scope funkcyjny; co to hoisting
-75. co się tak na prawdę stało na poprzednim slajdzie
-76. let - scope blokowy; shadowing; brak hoistingu
-77.
-78. hoisting nazwanych funkcji - najbardziej przydatne
-79. hoisting funkcji przypisanych do zmiennych już tak dobrze nie działa; o ile deklaracja `var` jest hoistowana, to przypisanie funkcji już nie
-80. let przy hoistingu przypisania funkcji nie pomoże
-81. var - scope fukncyjny
-82. var - scope fukncyjny; shadowing - oba `a` to dwie różne zmienne
-83. na koniec: hoisting var jest łatwy do przeoczenia w pętlach for; let temu zapobiega
+01. .
+02. o historii JavaScriptu: powstał w dwa tygodnie. Koniec.
+03. .
+04. proste - kopie przez wartość, złożone - kopie przez referencje; string jest prawdopodobnie kopiowany.
+05. obowiązkowy mem.
+06. słowo o wbudowanej konsoli.
+07. .
+08. symbole sa unikalne; kilka jest predefiniowanych.
+09. Symbol.for() posiada globalny zbiór, Symbol(wartość) nie doda do tego mappingu.
+10. operator typeof; null, undefined i array zachowują się nietypowo; null - brak obiektu, undefiend - brak wartości.
+11. funkcje zachowują się w oczekiwany sposób.
+12. .
+13. .
+14. słowo o background w wpaski - tryb non-strict; włączamy ten tryb na poziomie scope'a; `window.a` w node jako `global.a`; var/let/const wytłumaczony będzie za chwile.
+15. redeklaracja zmiennej.
+16. nadpisywanie zmiennej.
+17. .
+18. operatory `&&` i `||` nie rzutują na booleana, tylko zwracają prawdziwie-podobną wartość; `!` rzutuje na booleana; rzutowanie na booleana można wymusić przez podwójną negację.
+19. znak `===` porównuje też typy watrości; jeżeli `==` zwróci true, to nie znaczy, że `===` zwróci true; jeżeli `!=` zwróci true, to nie znaczy, że `!==` zwróci true.
+20. .
+21. .
+22. .
+23. operacje matematyczne typu number i string mogą zwrócić NaN; wyjątek to dodawanie.
+24. pusty string jest interpretowany jako 0.
+25. IEEE 754.
+26. .
+27. zawsze trzeba escapować backslash.
+28. .
+29. .
+30. rzutują na integera.
+31. .
+32. .
+33. .
+34. .
+35. skupimy się na for...in i for...of.
+36. for...in na obiekcie zwraca klucze.
+37. for...in na obiekcie zwraca indeksy jako stringi; lepiej użyc zwykłego for.
+38. skoro array jest obiektem, to for...in też będzie iterował po dodanych kluczach.
+39. .
+40. o tym jak się iterować po obiektach będzie później (slajd 66).
+41. .
+42. .
+43. rekomendowane [].
+44. rekomendowane Array(number).
+45. puste wartości na konsolach mogą być reprezentowane różnie; krótko opisać array.map().
+46. .
+47. .
+48. tablice sa kopiowane przez referencje; 1. przykład a i b modyfikują tę samą tablice, w 2. modyfikują osobne.
+49. kopiowanie tablicy, o spreadzie będzie za dwa slajdy.
+50. tablice wewnątrz tablicy są nadal kopiowane prezez referencje.
+51. .
+52. .
+53. wartości iterowalne można przemienić na tablice przez funkcje Array.from().
+54. wartości iterowalne i spread można wykorzystać w wywoływaniu funkcji.
+55. .
+56. splice: `2` - indeks początkowy, `1` - ilosc elementów (opcjonalne, domyślnie `a.length`).
+57. filter: callback dostaje 3 argumenty; slice: `0` i `3` - indeks początkowy, `2` - ilosc elementów (opcjonalne, domyślnie `a.length`).
+58. .
+59. .
+60. klucze staja sie stringami.
+61. ignoruj tryb non-strict; parsowanie bloku ma priorytet przed tworzeniem obiektu.
+62. nawiasy kwadratowe pozwalaja na obilczenie wartosci klucza; wynik musi być stringiem, inaczej jest rzutowany.
+63. klucze zdefiniowane później nadpisują te wcześniejsze; trzeba uważać przy zwracanych wynikach, lub to mądrze wykorzystać; array'e sa joinowane; obiekty castowane do '[object Object]'; uwaga na funkcje, których wynik się zmienia.
+64. .
+65. .
+66. destrukturyzacja nie modyfikuje obiektu źródłowego.
+67. 1. for...in; 2. for...of.
+68. co zwracją Object.keys() i Object.entries().
+69. .
+70. tak jak tablice, obiekty są kopiowane przez referencje; do wykonania płytkiej kopii potrzeba albo spread/rest, albo Object.assign(); Object.create() tworzy nowy obiekt na podstawie źródłowego, przez co wsolne property będzie się tam znajdowało.
+71. .
+72. różnica między function a arrow function będzie dopiero pokazana przy obiektowości.
+73. domyślne wartości nie muszą być na końcu listy argumentów; undefined pozwoli na defaultową wartość, ale null nie.
+74. .
+75. var - scope funkcyjny; co to hoisting.
+76. co się tak na prawdę stało na poprzednim slajdzie.
+77. let - scope blokowy; shadowing; brak hoistingu.
+78. .
+79. hoisting nazwanych funkcji - najbardziej przydatne.
+80. hoisting funkcji przypisanych do zmiennych już tak dobrze nie działa; o ile deklaracja `var` jest hoistowana, to przypisanie funkcji już nie.
+81. let przy hoistingu przypisania funkcji nie pomoże.
+82. var - scope fukncyjny.
+83. var - scope fukncyjny; shadowing - oba `a` to dwie różne zmienne.
+84. na koniec: hoisting var jest łatwy do przeoczenia w pętlach for; let temu zapobiega.
+85. .
+86. .
+87. .

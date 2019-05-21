@@ -26,6 +26,8 @@
           <li><a href="#/functions-start">Funkcje</a></li>
           <li><a href="#/hoisting-start">Hoisting</a></li>
         </ol>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section id="knowledge-start">
@@ -36,10 +38,14 @@
           <li><a href="https://caniuse.com/">Can I Use</a></li>
           <li><a href="https://stackoverflow.com/">stackoverflow</a></li>
         </ul>
+
+        <aside class="notes"><p>o historii JavaScriptu: powstał w dwa tygodnie. Koniec</p></aside>
       </section>
 
       <section id="types-start">
         <h3>Typy danych</h3>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -64,10 +70,14 @@
             </ul>
           </div>
         </div>
+
+        <aside class="notes"><p>proste - kopie przez wartość, złożone - kopie przez referencje</p><p>string jest prawdopodobnie kopiowany</p></aside>
       </section>
 
       <section>
-        <img src="css/null undefined.png" alt="null !== undefined">
+        <img src="css/null-undefined.png" alt="null !== undefined">
+
+        <aside class="notes"><p>obowiązkowy mem</p></aside>
       </section>
 
       <section>
@@ -98,6 +108,8 @@ let a = { a: 1, b: 2 }; a;
         <textarea class="eval" autocomplete="off" rows="1">
 let a = [1, 2, 3]; a;
         </textarea>
+
+        <aside class="notes"><p>słowo o wbudowanej konsoli</p></aside>
       </section>
 
       <section>
@@ -120,6 +132,8 @@ let a = () => 0; a;
         <textarea class="eval" autocomplete="off" rows="1">
 let a = function* () { yield 1; }; a;
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -136,6 +150,8 @@ let a = Symbol('foo');
 let b = Symbol('foo');
 a !== b;
         </textarea>
+
+        <aside class="notes"><p>symbole sa unikalne</p><p>kilka jest predefiniowanych</p></aside>
       </section>
 
       <section>
@@ -154,6 +170,8 @@ let a = Symbol('foo');
 let b = Symbol.for('foo');
 a !== b;
         </textarea>
+
+        <aside class="notes"><p>Symbol.for() posiada globalny zbiór, Symbol(wartość) nie doda do tego mappingu</p></aside>
       </section>
 
       <section>
@@ -184,6 +202,8 @@ typeof { a: 1, b: 2 };
         <textarea class="eval" autocomplete="off" rows="1">
 typeof [1, 2, 3];
         </textarea>
+
+        <aside class="notes"><p>operator typeof</p><p>null, undefined i array zachowują się nietypowo</p><p>null - brak obiektu, undefiend - brak wartości</p></aside>
       </section>
 
       <section>
@@ -202,18 +222,24 @@ typeof (() => 0);
         <textarea class="eval" autocomplete="off" rows="1">
 typeof function* () { yield 1; };
         </textarea>
+
+        <aside class="notes"><p>funkcje zachowują się w oczekiwany sposób</p></aside>
       </section>
 
       <section>
         <textarea class="eval" autocomplete="off" rows="1">
 typeof Symbol.for('foo');
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section id="syntax-start">
         <h3>Syntax</h3>
 
         <h4>Deklarowanie zmiennych</h4>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -247,6 +273,8 @@ a;
 const a = 1;
 a;
         </textarea>
+
+        <aside class="notes"><p>słowo o background w wpaski - tryb non-strict</p><p>włączamy ten tryb na poziomie scope'a</p><p>`window.a` w node jako `global.a`</p><p>var/let/const wytłumaczony będzie za chwile</p></aside>
       </section>
 
       <section>
@@ -274,6 +302,8 @@ a;
 const a = 1; const a = 2;
 a;
         </textarea>
+
+        <aside class="notes"><p>redeklaracja zmiennej</p></aside>
       </section>
 
       <section>
@@ -291,12 +321,16 @@ a = 2;
 const a = 1
 a = 2;
         </textarea>
+
+        <aside class="notes"><p>nadpisywanie zmiennej</p></aside>
       </section>
 
       <section id="syntax-operators-start">
         <h3>Syntax</h3>
 
         <h4>Operatory</h4>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -319,6 +353,8 @@ false && true;
         <textarea class="eval" autocomplete="off" rows="1">
 !!0 // !(!0);
         </textarea>
+
+        <aside class="notes"><p>operatory `&&` i `||` nie rzutują na booleana, tylko zwracają prawdziwie-podobną wartość</p><p>`!` rzutuje na booleana</p><p>rzutowanie na booleana można wymusić przez podwójną negację</p></aside>
       </section>
 
       <!-- <section>
@@ -340,6 +376,8 @@ let a = {};
 let b = a.b.c.d[0];
 b;
         </textarea>
+
+        <aside class="notes"><p>znak `===` porównuje też typy watrości</p><p>jeżeli `==` zwróci true, to nie znaczy, że `===` zwróci true</p><p>jeżeli `!=` zwróci true, to nie znaczy, że `!==` zwróci true</p></aside>
       </section> -->
 
       <section>
@@ -357,6 +395,8 @@ b;
         <textarea class="eval" autocomplete="off" rows="1">
 1 !== '1';
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -374,6 +414,8 @@ null != false;
         <textarea class="eval" autocomplete="off" rows="1">
 undefined != false;
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -393,6 +435,8 @@ undefined != false;
         <textarea class="eval" autocomplete="off" rows="1">
 0 !== false;
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -406,6 +450,8 @@ undefined != false;
         <textarea class="eval" autocomplete="off" rows="1">
 !false;
         </textarea>
+
+        <aside class="notes"><p>operacje matematyczne typu number i string mogą zwrócić NaN</p><p>wyjątek to dodawanie</p></aside>
       </section>
 
       <section>
@@ -429,6 +475,8 @@ isNaN(1/'a');
         <textarea class="eval" autocomplete="off" rows="1">
 isNaN(0/0);
         </textarea>
+
+        <aside class="notes"><p>pusty string jest interpretowany jako 0</p></aside>
       </section>
 
       <section>
@@ -448,6 +496,8 @@ Infinity === Infinity;
         <textarea class="eval" autocomplete="off" rows="1">
 1/'' === Infinity;
         </textarea>
+
+        <aside class="notes"><p>IEEE 754</p></aside>
       </section>
 
       <section>
@@ -466,6 +516,8 @@ Infinity === Infinity;
         </textarea>
           </li>
         </ul>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -490,6 +542,8 @@ void 0;
             </textarea>
           </li>
         </ul>
+
+        <aside class="notes"><p>zawsze trzeba escapować backslash</p></aside>
       </section>
 
       <section>
@@ -515,6 +569,8 @@ void 0;
           </li>
         </ul>
 
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -540,6 +596,8 @@ void 0;
         <textarea class="eval" autocomplete="off" rows="1">
 'a=' + { a: 1, b: 2, c: 3 };
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -548,6 +606,8 @@ let a = "text";
 let b = 1;
 `${a} ${b + 2} ${new Date().getFullYear()}`;
         </textarea>
+
+        <aside class="notes"><p>rzutują na integera</p></aside>
       </section>
 
       <section>
@@ -570,6 +630,8 @@ let b = 1;
         <textarea class="eval" autocomplete="off" rows="1">
 4 &gt;&gt; 1;
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -579,6 +641,8 @@ let b = 1;
           <li>*=, /=, +=, -=, %=, **= (ES7)</li>
           <li>|=, &=, ^=, &lt;&lt;=, &gt;&gt;=</li>
         </ul>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -591,6 +655,8 @@ let b = 1;
 let a = (1, 2);
 a;
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -612,12 +678,16 @@ let arg = 1.91268313;
 let param = arg | 0; // bitowy "or"
 param;
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section id="syntax-loops-start">
         <h3>Syntax</h3>
 
         <h4>Pętle</h4>
+
+        <aside class="notes"><p>skupimy się na for...in i for...of</p></aside>
       </section>
 
       <section>
@@ -628,6 +698,8 @@ param;
           <li>for...in</li>
           <li>for...of</li>
         </ul>
+
+        <aside class="notes"><p>for...in na obiekcie zwraca klucze</p></aside>
       </section>
 
       <section>
@@ -639,6 +711,8 @@ for (let x in value) {
   log(x, value[x]);
 }
         </textarea>
+
+        <aside class="notes"><p>for...in na obiekcie zwraca indeksy jako stringi</p><p>lepiej użyc zwykłego for</p></aside>
       </section>
 
       <section>
@@ -650,6 +724,8 @@ for (let x in value) {
   log(x, value[x]);
 }
         </textarea>
+
+        <aside class="notes"><p>skoro array jest obiektem, to for...in też będzie iterował po dodanych kluczach</p></aside>
       </section>
 
       <section>
@@ -662,6 +738,8 @@ for (let x in value) {
   log(x, value[x]);
 }
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -672,6 +750,8 @@ for (let x of [1, 2, 3]) {
   log(x);
 }
         </textarea>
+
+        <aside class="notes"><p>o tym jak się iterować po obiektach będzie później (slajd 66)</p></aside>
       </section>
 
       <section>
@@ -682,6 +762,8 @@ for (let x of { a: 1, b: 2, c: 3 }) {
   log(x);
 }
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -697,10 +779,14 @@ for (let x of values) {
   log(x);
 }
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section id="tables-start">
         <h3>Tablice</h3>
+
+        <aside class="notes"><p>rekomendowane []</p></aside>
       </section>
 
       <section>
@@ -719,6 +805,8 @@ a;
 let a = Array();
 a;
         </textarea>
+
+        <aside class="notes"><p>rekomendowane Array(number)</p></aside>
       </section>
 
       <section>
@@ -744,6 +832,8 @@ a;
 let a = Array(5);
 a;
         </textarea>
+
+        <aside class="notes"><p>puste wartości na konsolach mogą być reprezentowane różnie</p><p>krótko opisać array.map()</p></aside>
       </section>
 
       <section>
@@ -765,6 +855,8 @@ let a = Array(5).map(() => {
 });
 a;
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -783,6 +875,8 @@ a;
 let a = [...Array(5)].map(() => true);
 a;
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -803,6 +897,8 @@ a !== b;
 let a = [];
 a !== [];
         </textarea>
+
+        <aside class="notes"><p>tablice sa kopiowane przez referencje</p><p>1. przykład a i b modyfikują tę samą tablice, w 2. modyfikują osobne</p></aside>
       </section>
 
       <section>
@@ -825,6 +921,8 @@ log('a', a);
 log('b', b);
 a !== b;
         </textarea>
+
+        <aside class="notes"><p>kopiowanie tablicy, o spreadzie będzie za dwa slajdy</p></aside>
       </section>
 
       <section>
@@ -846,6 +944,8 @@ let a = [1];
 let b = [...a];
 a !== b;
         </textarea>
+
+        <aside class="notes"><p>tablice wewnątrz tablicy są nadal kopiowane prezez referencje</p></aside>
       </section>
 
       <section>
@@ -860,6 +960,8 @@ let a = [[1], [2, 3]];
 let b = [...a];
 a[0] === b[0]
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -885,6 +987,8 @@ a;
 let a = [...[], 0, ...(true ? [1, 2, 3] : [])];
 a;
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -911,6 +1015,8 @@ let a = true;
 let b = [...a];
 b;
         </textarea>
+
+        <aside class="notes"><p>wartości iterowalne można przemienić na tablice przez funkcje Array.from()</p></aside>
       </section>
 
       <section>
@@ -930,6 +1036,8 @@ a.set("b", 2);
 let b = Array.from(a);
 b;
         </textarea>
+
+        <aside class="notes"><p>wartości iterowalne i spread można wykorzystać w wywoływaniu funkcji</p></aside>
       </section>
 
       <section>
@@ -942,6 +1050,8 @@ let fn = (a, b, c, d) => {
 let a = [2, 3];
 fn(1, ...a, 4);
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -969,6 +1079,8 @@ let a = [2, 3];
 a.unshift(1);
 a;
         </textarea>
+
+        <aside class="notes"><p>splice: `2` - indeks początkowy, `1` - ilosc elementów (opcjonalne, domyślnie `a.length`)</p></aside>
       </section>
 
       <section>
@@ -984,6 +1096,8 @@ let a = [1, 2, 3, 4, 5];
 log(a.splice(2, 1)); // zwraca elementy usunięte
 a;
         </textarea>
+
+        <aside class="notes"><p>filter: callback dostaje 3 argumenty</p><p>slice: `0` i `3` - indeks początkowy, `2` - ilosc elementów (opcjonalne, domyślnie `a.length`)</p></aside>
       </section>
 
       <section>
@@ -1005,6 +1119,8 @@ let b = [...a];
 b.splice(2, 1);
 b;
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -1026,11 +1142,15 @@ let a = [1, 2, 3, 4, 5];
 a.length = 0;
 a;
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section id="objects-start">
         <h3>Obiekty</h3>
         <small>plain old data</small>
+
+        <aside class="notes"><p>klucze staja sie stringami</p></aside>
       </section>
 
       <section>
@@ -1059,6 +1179,8 @@ a;
 let a = { null: 1 };
 a;
         </textarea>
+
+        <aside class="notes"><p>ignoruj tryb non-strict</p><p>parsowanie bloku ma priorytet przed tworzeniem obiektu</p></aside>
       </section>
 
       <section>
@@ -1082,6 +1204,8 @@ a;
         <textarea class="eval" autocomplete="off" rows="1">
 ({ a: 1, b: 2 })
         </textarea>
+
+        <aside class="notes"><p>nawiasy kwadratowe pozwalaja na obilczenie wartosci klucza</p><p>wynik musi być stringiem, inaczej jest rzutowany</p></aside>
       </section>
 
       <section>
@@ -1110,6 +1234,8 @@ a;
 let a = { ['timestamp-' + Date.now()]: 1 }
 a;
         </textarea>
+
+        <aside class="notes"><p>klucze zdefiniowane później nadpisują te wcześniejsze</p><p>trzeba uważać przy zwracanych wynikach, lub to mądrze wykorzystać</p><p>array'e sa joinowane</p><p>obiekty castowane do '[object Object]'</p><p>uwaga na funkcje, których wynik się zmienia</p></aside>
       </section>
 
       <section>
@@ -1139,6 +1265,8 @@ a[{ b: 2 }] // a['[object Object]']
 let a = { ['timestamp-' + Math.random()]: 1 };
 a['timestamp-' + Math.random()]
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -1167,6 +1295,8 @@ let a = {};
 a[{ b: 2 }] = 1;
 a;
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -1187,6 +1317,8 @@ log("d", d);
 log("rest", rest);
 obj;
         </textarea>
+
+        <aside class="notes"><p>destrukturyzacja nie modyfikuje obiektu źródłowego</p></aside>
       </section>
 
       <section>
@@ -1215,6 +1347,8 @@ for (let pair of Object.entries(obj)) {
   log(pair);
 }
         </textarea>
+
+        <aside class="notes"><p>1. for...in</p><p>2. for...of</p></aside>
       </section>
 
       <section>
@@ -1228,6 +1362,8 @@ Object.keys(obj);
 let obj = { a: 1, b: 2 };
 Object.entries(obj);
         </textarea>
+
+        <aside class="notes"><p>co zwracją Object.keys() i Object.entries()</p></aside>
       </section>
 
       <section>
@@ -1243,6 +1379,8 @@ let a = { a: 1, b: 2, c: 3 };
 let { c, ...b } = a;
 b;
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -1270,10 +1408,14 @@ let a = { a: 1 };
 let b = Object.create(a);
 b; // b.a
         </textarea>
+
+        <aside class="notes"><p>tak jak tablice, obiekty są kopiowane przez referencje</p><p>do wykonania płytkiej kopii potrzeba albo spread/rest, albo Object.assign()</p><p>Object.create() tworzy nowy obiekt na podstawie źródłowego, przez co wsolne property będzie się tam znajdowało</p></aside>
       </section>
 
       <section id="functions-start">
         <h3>Funkcje</h3>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -1296,6 +1438,8 @@ fn();
 let fn = () => 1;
 fn();
         </textarea>
+
+        <aside class="notes"><p>różnica między function a arrow function będzie dopiero pokazana przy obiektowości</p></aside>
       </section>
 
       <section>
@@ -1318,11 +1462,15 @@ fn(null, 1);
 function fn(a = 1, b) { return [a, b]; }
 fn(undefined, 1);
         </textarea>
+
+        <aside class="notes"><p>domyślne wartości nie muszą być na końcu listy argumentów</p><p>undefined pozwoli na defaultową wartość, ale null nie</p></aside>
       </section>
 
       <section id="hoisting-start">
         <h3>Hoisting i scope</h3>
         <p>var, let, const</p>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -1341,6 +1489,8 @@ if (true) {
 }
 a;
         </textarea>
+
+        <aside class="notes"><p>var - scope funkcyjny</p><p>co to hoisting</p></aside>
       </section>
 
       <section>
@@ -1361,6 +1511,8 @@ if (true) {
 }
 a;
         </textarea>
+
+        <aside class="notes"><p>co się tak na prawdę stało na poprzednim slajdzie</p></aside>
       </section>
 
       <section>
@@ -1378,6 +1530,8 @@ a;
 log(a);
 let a = 1;
         </textarea>
+
+        <aside class="notes"><p>let - scope blokowy</p><p>shadowing</p><p>brak hoistingu</p></aside>
       </section>
 
       <section>
@@ -1395,6 +1549,8 @@ a;
 log(a);
 const a = 1;
         </textarea>
+
+        <aside class="notes"><p></p></aside>
       </section>
 
       <section>
@@ -1410,6 +1566,8 @@ log(fn);
 log(fn());
 function fn() { return 1; }
         </textarea>
+
+        <aside class="notes"><p>hoisting nazwanych funkcji - najbardziej przydatne</p></aside>
       </section>
 
       <section>
@@ -1424,6 +1582,8 @@ log(fn);
 log(fn());
 var fn = function() { return 1; }
         </textarea>
+
+        <aside class="notes"><p>hoisting funkcji przypisanych do zmiennych już tak dobrze nie działa</p><p>o ile deklaracja `var` jest hoistowana, to przypisanie funkcji już nie</p></aside>
       </section>
 
       <section>
@@ -1438,6 +1598,8 @@ log(fn);
 log(fn());
 let fn = function() { return 1; }
         </textarea>
+
+        <aside class="notes"><p>let przy hoistingu przypisania funkcji nie pomoże</p></aside>
       </section>
 
       <section>
@@ -1450,6 +1612,8 @@ function fn() {
 log('fn()', fn());
 log('a', a);
         </textarea>
+
+        <aside class="notes"><p>var - scope fukncyjny</p></aside>
       </section>
 
       <section>
@@ -1462,6 +1626,8 @@ function fn() {
 log('fn()', fn());
 log('a', a);
         </textarea>
+
+        <aside class="notes"><p>var - scope fukncyjny</p><p>shadowing - oba `a` to dwie różne zmienne</p></aside>
       </section>
 
       <section>
@@ -1478,11 +1644,30 @@ for (let i = 0; i &lt; 2; i++) {
 }
 i;
         </textarea>
+
+        <aside class="notes"><p>na koniec: hoisting var jest łatwy do przeoczenia w pętlach for</p><p>let temu zapobiega</p></aside>
       </section>
 
       <section>
         <h3>;</h3>
+
+        <aside class="notes"><p></p></aside>
       </section>
+
+      <section>
+        <a href="https://www.reddit.com/r/ProgrammerHumor/comments/8srix1/thanks_brendan_for_giving_us_the_javascript/">
+          <img src="css/thanks-brendan-for-giving-us-the-javascript.png" alt="Thanks Brendan for giving us the Javascript">
+        </a>
+
+        <aside class="notes"><p></p></aside>
+      </section>
+
+      <section>
+        <img src="css/javascript-was-a-mistake.jpg" alt="Javascript was a mistake">
+
+        <aside class="notes"><p></p></aside>
+      </section>
+
     </div>
   </div>
 
@@ -1493,6 +1678,7 @@ i;
     Reveal.initialize({
       dependencies: [
         { src: 'plugin/eval/eval.js' },
+        { src: 'plugin/notes/notes.js' },
       ],
       history: true,
       slideNumber: true,
