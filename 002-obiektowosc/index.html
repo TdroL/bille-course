@@ -33,76 +33,76 @@
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let a = {};
 a;
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let fn = function () { return 0; }
 fn;
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() { return 0; }
 fn;
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let fn = () =&gt; { return 0; }
 fn;
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let fn = () =&gt; 0
 fn;
         </textarea>
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() { return 0; };
 let a = { fn: fn };
 a.fn();
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let fn = () =&gt; { return 0; };
 let a = { fn: fn };
 a.fn();
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let a = { fn: function () { return 0; } };
 a.fn();
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let a = { fn: () =&gt; { return 0; } };
 a.fn();
         </textarea>
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {}
 let a = new A();
 a;
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {}
 let a = new A();
 a.constructor;
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {}
 let a = new A();
 a instanceof A;
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   this.propA = 1;
 }
@@ -112,7 +112,7 @@ a.propA;
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   return 1;
 }
@@ -120,7 +120,7 @@ let a = new A();
 a;
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   return 1;
 }
@@ -130,7 +130,7 @@ a;
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   if (!(this instanceof A)) {
     return new A();
@@ -140,7 +140,7 @@ let a = new A();
 a;
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   if (!(this instanceof A)) {
     return new A();
@@ -152,19 +152,19 @@ a;
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let a = new Array();
 a;
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let a = Array();
 a;
         </textarea>
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A(a, b = 2) {
   this.propA = a;
   this.propB = b;
@@ -179,18 +179,17 @@ a.fn();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let a = new Date();
 let b = new Date();
 
 a.getTime === b.getTime
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A(a) {
-  this.propA = a;
   this.fn = function () {
-    return this.propA;
+    return 1;
   };
 }
 
@@ -206,7 +205,7 @@ a.fn !== b.fn;
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() {
   return this;
 }
@@ -214,11 +213,11 @@ function fn() {
 fn();
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() {
   return this;
 }
-let a = {};
+let a = { propA: 1 };
 a.fn = fn;
 
 a.fn();
@@ -226,29 +225,29 @@ a.fn();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() {
   return this;
 }
-let a = {};
+let a = { propA: 1 };
 
 fn.call(a);
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() {
   return this;
 }
-let a = {};
+let a = { propA: 1 };
 
 fn.apply(a);
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() {
   return this;
 }
-let a = {};
+let a = { propA: 1 };
 let boundFn = fn.bind(a);
 
 boundFn();
@@ -256,11 +255,12 @@ boundFn();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <p>bind</p>
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() {
   return this;
 }
-let a = {};
+let a = { propA: 1 };
 let boundFn = fn.bind(a);
 
 log("boundFn", boundFn());
@@ -269,41 +269,39 @@ log("fn", fn());
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() {
   return this;
 }
 let a = { propA: 1 };
 let b = { propB: 2 };
-let boundFn = fn.bind(a);
 
+let boundFn = fn.bind(a);
 log(boundFn());
 
 boundFn = boundFn.bind(b);
-
 log(boundFn());
         </textarea>
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() {
   return this;
 }
 let a = { propA: 1 };
 let b = { propB: 2 };
-let boundFn = fn.bind(a);
 
+let boundFn = fn.bind(a);
 log(boundFn());
 
 boundFn = fn.bind(b);
-
 log(boundFn());
         </textarea>
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() {
   return this;
 }
@@ -318,7 +316,8 @@ log(boundBFn());
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <p>unbind</p>
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let a = {
   fn: function () {
     return this;
@@ -332,7 +331,8 @@ log("callback", callback());
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <p>call vs apply</p>
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn(arg1, arg2) {
   log(arg1, arg2);
   return this;
@@ -342,7 +342,7 @@ let a = {};
 fn.call(a, 1, 2);
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn(arg1, arg2) {
   log(arg1, arg2);
   return this;
@@ -360,7 +360,7 @@ fn.apply(a, [1, 2]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn1(self) { return self.propA + 1; };
 function fn2(self) { return self.propA + 2; };
 
@@ -375,7 +375,7 @@ a.fn1(a); // &lt;- 2
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn1(self) { return self.propA + 1; };
 function fn2(self) { return self.propA + 2; };
 
@@ -388,10 +388,15 @@ let a = {
 
 a.vtable.fn1(a); // &lt;- 3
         </textarea>
+
+        <p>C-macro:</p>
+        <pre><code>#define CALL(object, method, ...) \
+  object->vtable.method(object, __VA_ARGS__)</code></pre>
+        <pre><code>CALL(a, fn1);</code></pre>
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn1(self) { return self.propA + 1; };
 function fn2(self) { return self.propA + 2; };
 function fn2Alt(self) { return self.propA + 22; };
@@ -409,7 +414,7 @@ a.vtable.fn2(a);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn1(self) { return self.propA + 1; };
 function fn2(self) { return self.propA + 2; };
 function fn2Alt(self) { return self.propA + 22; };
@@ -434,7 +439,7 @@ log(a.vtable.fn2(a));
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn1(self) { return self.propA + 1; };
 function fn2(self) { return self.propA + 2; };
 function fn2Alt(self) { return self.propA + 22; };
@@ -455,7 +460,7 @@ log(a.vtable.fn2(a));
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn1(self) { return self.propA + 1; };
 function fn2(self) { return self.propA + 2; };
 function fn2Alt(self) { return self.propA + 22; };
@@ -474,7 +479,7 @@ log(a.vtable.fn2(a), b.vtable.fn2(b));
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn1(self) { return self.propA + 1; };
 function fn2(self) { return self.propA + 2; };
 function fn2Alt(self) { return self.propA + 22; };
@@ -493,7 +498,8 @@ log(a.vtable.fn2(a), b.vtable.fn2(b));
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <p>vtable compatibility</p>
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn1(self) { return self.propA + 1; };
 function fn2(self) { return self.propA + 2; };
 function fn2Alt(self) { return self.propA + 22; };
@@ -509,7 +515,7 @@ a.vtable.fn2(b); // &lt;- 3: self -&gt; b
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn1(self) { return self.propA + 1; };
 function fn2(self) { return self.propA + 2; };
 function fn2AltC(self) { return self.propC + 3; };
@@ -525,7 +531,7 @@ a.vtable.fn2(c); // &lt;- 3: self -&gt; c
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn1(self) { return self.propA + 1; };
 function fn2ObjA(self) { return self.objA.propA + 2; };
 function fn2AltC(self) { return self.propC + 3; };
@@ -541,15 +547,16 @@ a.vtable.fn2(c); // &lt;- 3: self -&gt; c
       </section>
 
       <section id="proto-start">
-        <h1>__proto__ / prototype</h1>
+        <h1>__proto__<br/>&amp;<br/>prototype</h1>
       </section>
 
       <section>
+        <h4>disclaimer</h4>
         <p>a.__proto__ === Object.getPrototypeOf(a)</p>
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() { return this.propA; }
 function A() {
   this.propA = 1;
@@ -561,7 +568,7 @@ a.__proto__.fn = fn; // a.__proto__ &lt;=&gt; a.vtable
 a.__proto__.fn.call(a); // a.vtable.fn(a)
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() { return this.propA; }
 function A() {
   this.propA = 1;
@@ -575,7 +582,7 @@ a.fn();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() { return this.propA; }
 function A() {
   this.propA = 1;
@@ -589,7 +596,7 @@ a.fn();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   this.propA = 1;
 }
@@ -599,7 +606,7 @@ let a = new A();
 a.__proto__ === A.prototype
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   this.propA = 1;
 }
@@ -612,7 +619,7 @@ A.prototype.fn;
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   this.propA = 1;
 }
@@ -622,7 +629,7 @@ let a = new A();
 a.propA;
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {}
 A.prototype.propA = 1;
 
@@ -633,7 +640,7 @@ a.propA;
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {}
 A.prototype.objA = {
   propA: 1,
@@ -646,7 +653,7 @@ b.objA.propA = 2;
 a.objA.propA;
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   this.objA = {
     propA: 1,
@@ -662,7 +669,7 @@ a.objA.propA;
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() {
   return this;
 }
@@ -678,14 +685,14 @@ a.fn();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let a = new Date();
 let b = new Date();
 
 a.getTime === b.getTime
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A(a) {
   this.propA = a;
   this.fn = function () {
@@ -701,14 +708,14 @@ a.fn !== b.fn;
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let a = new Date();
 let b = new Date();
 
 a.getTime === b.getTime
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() {
   return this.propA;
 }
@@ -725,7 +732,7 @@ a.fn === b.fn;
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() {
   return this.propA;
 }
@@ -743,7 +750,7 @@ a;
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() {
   return this.propA;
 }
@@ -767,7 +774,7 @@ a;
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   log('constructor');
   this.propA = 1;
@@ -779,7 +786,7 @@ let a = new A();
 a;
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   log('constructor');
   this.propA = 1;
@@ -793,7 +800,7 @@ a;
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   log('constructor');
   this.propA = 1;
@@ -805,7 +812,7 @@ let a = new A();
 a.fn();
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   log('constructor');
   this.propA = 1;
@@ -819,11 +826,11 @@ a.fn();
       </section>
 
       <section id="inheritance-start">
-        <h1>dziedziczenie</h1>
+        <h1>inheritance</h1>
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn1(self) { return self.propA + 1; };
 function fn2(self) { return self.propA + 2; };
 
@@ -843,7 +850,7 @@ a.vtable.fn2(a);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn1() { return this.propA + 1; };
 function fn2() { return this.propA + 2; };
 
@@ -854,7 +861,7 @@ A.prototype.fn1 = fn1;
 function B() { log('B'); }
 B.prototype = {
   ...A.prototype,
-  constructor: B, // opcjonalnie
+  constructor: B,
   fn2: fn2,
 };
 
@@ -864,7 +871,7 @@ a.fn2();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn1() { return this.propA + 1; };
 function fn2() { return this.propA + 2; };
 
@@ -874,7 +881,7 @@ A.prototype.fn1 = fn1;
 
 function B() { log('B'); }
 B.prototype = Object.create(A.prototype);
-B.prototype.constructor = B; // opcjonalnie
+B.prototype.constructor = B;
 B.prototype.fn2 = fn2;
 
 let a = new B(1);
@@ -883,7 +890,7 @@ a.fn2();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn1() { return this.propA + 1; };
 function fn2() { return this.propA + this.propB; };
 
@@ -900,7 +907,7 @@ function B(arg1) {
 }
 B.prototype = {
   ...A.prototype,
-  constructor: B, // opcjonalnie
+  constructor: B,
   fn2: fn2,
 };
 
@@ -910,7 +917,7 @@ a.fn2();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() { this.propA = 1; }
 A.prototype.fn1 = function () {
   log('A fn1');
@@ -940,7 +947,7 @@ a.fn1();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   this.propA = 1;
   this.fn = () => {
@@ -955,7 +962,7 @@ a.fn();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {}
 A.prototype.propA = 1;
 A.prototype.fn = () => {
@@ -969,7 +976,7 @@ a.fn();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const fn = () => {
   log('this', this);
   return this.propA;
@@ -984,7 +991,7 @@ fn.call(a);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   this.propA = 1;
 }
@@ -998,14 +1005,14 @@ A.prototype.fn = function () {
 let a = new A();
 let b = {
   propB: 100,
-  callback: a.fn()
+  callback: a.fn() // "create" method
 };
 b.callback();
         </textarea>
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function A() {
   this.propA = 1;
 }
@@ -1019,7 +1026,7 @@ A.prototype.fn = function () {
 let a = new A();
 let b = {
   propB: 100,
-  callback: a.fn()
+  callback: a.fn() // "create" method
 };
 b.callback();
         </textarea>
@@ -1030,7 +1037,7 @@ b.callback();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 class A {
   constructor() {
     this.propA = 1;
@@ -1047,7 +1054,7 @@ a.fn();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 class A {
   constructor() {
     this.propA = 1;
@@ -1075,7 +1082,7 @@ a.fn();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let A = class {
   constructor() {
     this.propA = 1;
@@ -1103,7 +1110,7 @@ a.fn();
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 class A {
   constructor() {
     this.propA = 1;
@@ -1122,7 +1129,7 @@ a.fn.call(b);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 class A {
   constructor() {
     this.internalPropA = 1;
@@ -1143,6 +1150,12 @@ let a = new A();
 a.propA = 2;
 a.propA;
         </textarea>
+      </section>
+
+      <section>
+        <h3>;</h3>
+
+        <aside class="notes"><p></p></aside>
       </section>
     </div>
   </div>

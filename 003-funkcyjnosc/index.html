@@ -144,7 +144,7 @@
         <h3>małe przypomnienie</h3>
         <p>spread syntax</p>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn(x, y, z) {
   log('x, y, z =', x, y, z);
 }
@@ -173,7 +173,7 @@ fn(1, ...getArgs());
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn(input) {
   let result = [];
   for (let i = 0; i &lt; input.length; i++) {
@@ -188,7 +188,7 @@ fn([1, 2, 3]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 class NumberList {
   constructor(list) { this.list = list; }
 
@@ -212,7 +212,7 @@ numberList.applyCriteria(new EvenCriteria());
 numberList.applyCriteria(new MultiplyProcessor());
 numberList.list;
         </textarea>
-        <!-- <textarea class="eval" autocomplete="off" rows="1">
+        <!-- <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
         function fn(input) {
   let result = [];
   input.forEach((value) =&gt; {
@@ -225,7 +225,7 @@ numberList.list;
 fn([1, 2, 3]);
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn(input) {
   return input
     .filter((value) =&gt; {
@@ -240,7 +240,7 @@ fn([1, 2, 3]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (value) =&gt; value * 2;
 const isEven = (value) =&gt; value % 2 === 1;
 
@@ -253,7 +253,7 @@ function fn(input) {
 fn([1, 2, 3]);
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (value) =&gt; value * 2;
 const isEven = (value) =&gt; value % 2 === 1;
 
@@ -284,14 +284,14 @@ fn([1, 2, 3]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function pure(a, b) {
   return a + b;
 }
 pure(1, 2);
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function pure(a, b) {
   return a > b ? a : b;
 }
@@ -300,7 +300,7 @@ pure(1, 2);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function impure(a, b) {
   a.propB = b;
   return a;
@@ -310,7 +310,7 @@ log('impure', impure(a, 2));
 a;
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function impure(a, b) {
   // łatwo zapomnieć, że pojawi się w konsoli przeglądarki
   console.log(a, b);
@@ -321,7 +321,7 @@ impure(1, 2);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function pure(a, b) {
   return a + b;
 }
@@ -332,7 +332,7 @@ function fn(a) { // pure
 fn(1);
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function impure(a, b) {
   a.propA = b;
   return a;
@@ -370,7 +370,7 @@ a;
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function pure(a, b) {
   return a + b;
 }
@@ -381,7 +381,7 @@ log(pure(1, 2));
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 let counter = 0;
 function impure(a, b) {
   return a + b + counter++;
@@ -394,7 +394,7 @@ log(impure(1, 2));
 
       <!--
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function pure(a, b) {
   while (b > 0) { b--; a++; }
   return a;
@@ -427,7 +427,7 @@ log(pureMemoized(1, 200));
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const square = (x) =&gt; x * x;
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
@@ -436,7 +436,7 @@ const decrease = (x) =&gt; x - 1;
 square(multiply(decrease(12)));
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const square = (x) =&gt; x * x;
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
@@ -454,7 +454,7 @@ f(12);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const square = (x) =&gt; x * x;
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
@@ -471,7 +471,7 @@ f(12);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const square = (x) =&gt; x * x;
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
@@ -492,7 +492,7 @@ f(12);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const square = (x) =&gt; x * x;
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
@@ -513,7 +513,7 @@ f(12);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const square = (x) =&gt; x * x;
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
@@ -534,7 +534,7 @@ f(12);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const square = (x) =&gt; x * x;
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
@@ -555,7 +555,7 @@ f(12);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function compose(...args) {
   return (x) =&gt; {
     let result = x;
@@ -573,7 +573,7 @@ f(12);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const square = (x) =&gt; x * x;
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
@@ -590,7 +590,7 @@ f(12);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const square = (x) =&gt; x * x;
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
@@ -611,7 +611,7 @@ f(12);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const square = (x) =&gt; x * x;
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
@@ -638,7 +638,7 @@ f(12);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const square = (x) =&gt; x * x;
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
@@ -669,7 +669,7 @@ f(12);
 
       <section>
         <p>simple currying</p>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const f = (x, y, z) =&gt; x + y + z;
 
 const g = (x) =&gt; {
@@ -688,7 +688,7 @@ f(1, 2, 3) === g(1)(2)(3);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const f = (x, y, z) =&gt; x + y + z;
 
 function curryN(n, fn) {
@@ -710,7 +710,7 @@ f(1, 2, 3) === g(1)(2)(3);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const f = (x, y, z) =&gt; x + y + z;
 
 function curryN(n, fn) {
@@ -735,7 +735,7 @@ f(1, 2, 3) === g(1)(2)(3);
 
       <section>
         <p>overloaded currying</p>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const f = (x, y, z) =&gt; x + y + z;
 
 function curryN(n, fn) {
@@ -759,7 +759,7 @@ log('g', g(1, 2, 3));
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const f = (x, y, z) =&gt; x + y + z;
 
 const g = curryN(3, f);
@@ -794,7 +794,7 @@ if (g(1, 2)) {
       </section>
 
       <section id="func-map-start">
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function map(input, fn) {
   const results = [];
   for (let i = 0; i &lt; input.length; i++) {
@@ -812,7 +812,7 @@ map(
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 
@@ -835,7 +835,7 @@ map(
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 
@@ -854,7 +854,7 @@ map(
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 
@@ -874,7 +874,7 @@ map(
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 
@@ -893,7 +893,7 @@ fn([1, 2, 3]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 
@@ -913,7 +913,7 @@ fn([1, 2, 3]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 
@@ -933,7 +933,7 @@ fn([1, 2, 3]);
       </section>
 
       <section id="func-filter-start">
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 const isEven = (x) =&gt; x % 2 == 0;
@@ -955,7 +955,7 @@ filter(isEven)([1, 2, 3]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 const isEven = (x) =&gt; x % 2 == 0;
@@ -978,7 +978,7 @@ fn([1, 2, 3]);
 
 
       <section id="func-reduce-start">
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 const sum = (a, b) =&gt; a + b;
@@ -1004,7 +1004,7 @@ fn([1, 2, 3]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 const sum = (a, b) =&gt; a + b;
@@ -1028,7 +1028,7 @@ fn([1, 2, 3]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 const sum = (a, b) =&gt; a + b;
@@ -1050,7 +1050,7 @@ fn([1, 2, 3]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 
@@ -1072,7 +1072,7 @@ fn([1, 2, 3]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 const isEven = (x) =&gt; x % 2 == 0;
@@ -1096,7 +1096,7 @@ fn([1, 2, 3]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 
@@ -1122,7 +1122,7 @@ fn([1, 2, 3]);
       </section>
 
       <section id="func-tap-start">
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 
@@ -1144,7 +1144,7 @@ fn([1, 2, 3]);
       </section>
 
       <section id="func-pick-start">
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const isDefined = (x) =&gt; x != null;
 
 function pick(key) {
@@ -1164,7 +1164,7 @@ fn([{ name: 'A' }, { name: 'B' }, {}]);
       </section>
 
       <section id="func-pluck-start">
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const isDefined = (x) =&gt; x != null;
 
 function pluck(key) {
@@ -1186,7 +1186,7 @@ fn([{ name: 'A' }, { name: 'B' }, {}]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const isDefined = (x) =&gt; x != null;
 function pluck(key) {
   return map(pick(key));
@@ -1202,7 +1202,7 @@ fn([{ name: 'A' }, { name: 'B' }, {}]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const isDefined = (x) =&gt; x != null;
 
 // zastosujemy compose
@@ -1223,7 +1223,7 @@ fn([{ name: 'A' }, { name: 'B' }, {}]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn(object) {
   return object.details.users[0].name;
 }
@@ -1239,7 +1239,7 @@ fn({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn(object) {
   if (object != null) {
     if (object.details != null) {
@@ -1267,7 +1267,7 @@ fn({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn(object) {
   if (object != null ||
     object.details != null ||
@@ -1291,7 +1291,7 @@ fn({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function pick(key) {
   return (input) =&gt; {
     return input != null ? input[key] : undefined;
@@ -1318,7 +1318,7 @@ fn({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function pick(key) {
   return (input) =&gt; {
     return input != null ? input[key] : undefined;
@@ -1343,7 +1343,7 @@ fn({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const fn = pipe(
   ...[
     pick('details'),
@@ -1363,7 +1363,7 @@ fn({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const props = ['details', 'users', 0, 'name'];
 
 const fn = pipe(
@@ -1380,7 +1380,7 @@ fn({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function path(props) {
   return pipe(
     ...props.map(pick)
@@ -1400,7 +1400,7 @@ findName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function setName(input) {
   if (input == null) {
     input = {};
@@ -1419,7 +1419,7 @@ setName({ name: 'old name' });
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function accessObject(name, callback) {
   return (input) =&gt; {
     if (input == null) {
@@ -1444,7 +1444,7 @@ setName({ name: 'old name' });
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function accessArray(index, callback) {
   return (input) =&gt; {
     if (!Array.isArray(input)) {
@@ -1471,7 +1471,7 @@ setElement3([1, 2, 3, 4, 5]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function access(key, callback) {
   if (typeof key === 'number') {
     return accessArray(key, callback);
@@ -1491,7 +1491,7 @@ setName({ name: 'old name' });
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function access(key, callback) {
   if (typeof key === 'number') {
     return accessArray(key, callback);
@@ -1511,7 +1511,7 @@ setElement3([1, 2, 3, 4, 5]);
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function access(key, callback) {
   if (typeof key === 'number') {
     return accessArray(key, callback);
@@ -1535,7 +1535,7 @@ setFirstUserName([
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setDetailsUserName = access('details', (details) =&gt; {
   return access('users', (users) =&gt; {
     return access(0, (user) =&gt; {
@@ -1557,7 +1557,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setName = (name) =&gt; name ? 'updated name' : 'new name';
 
 const setDetailsUserName = access('details', (details) =&gt; {
@@ -1580,7 +1580,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setName = (name) =&gt; name ? 'updated name' : 'new name';
 
 const setDetailsUserName = access('details', (details) =&gt; {
@@ -1602,7 +1602,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setName = (name) =&gt; name ? 'updated name' : 'new name';
 
 const setDetailsUserName = access('details',
@@ -1624,7 +1624,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setName = (name) =&gt; name ? 'updated name' : 'new name';
 
 const a1 = access('name', setName);
@@ -1647,7 +1647,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setName = (name) =&gt; name ? 'updated name' : 'new name';
 
 const a1 = access('name', setName);
@@ -1669,7 +1669,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setName = (name) =&gt; name ? 'updated name' : 'new name';
 
 const a0 = setName;
@@ -1690,7 +1690,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setName = (name) =&gt; name ? 'updated name' : 'new name';
 
 const setDetailsUserName = pipe(
@@ -1711,7 +1711,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setName = (name) =&gt; name ? 'updated name' : 'new name';
 
 // pipe -&gt; compose, odwrócenie kolejności kluczy
@@ -1733,7 +1733,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setName = (name) =&gt; name ? 'updated name' : 'new name';
 
 const setDetailsUserName = compose(
@@ -1756,7 +1756,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setName = (name) =&gt; name ? 'updated name' : 'new name';
 
 const curryAccess = (key) =&gt; {
@@ -1785,7 +1785,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setName = (name) =&gt; name ? 'updated name' : 'new name';
 
 const curryAccess = (key) =&gt; {
@@ -1814,7 +1814,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setName = (name) =&gt; name ? 'updated name' : 'new name';
 const props = ['details', 'users', 0, 'name'];
 
@@ -1839,7 +1839,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setName = (name) =&gt; name ? 'updated name' : 'new name';
 const props = ['details', 'users', 0, 'name'];
 
@@ -1862,7 +1862,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setName = (name) =&gt; name ? 'updated name' : 'new name';
 const props = ['details', 'users', 0, 'name'];
 
@@ -1883,7 +1883,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function accessPath(props, callback) {
   return compose(
     ...props.map((key) =&gt; (callback) =&gt; {
@@ -1908,7 +1908,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function assocPath(props, value) {
   return compose(
     ...props.map((key) =&gt; (callback) =&gt; {
@@ -1935,7 +1935,7 @@ setDetailsUserName({
       </section>
 
       <section>
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setDetailsUserName = access('details',
   access('users',
     access(0,
@@ -1949,7 +1949,7 @@ const setDetailsUserName = access('details',
 setDetailsUserName({});
         </textarea>
 
-        <textarea class="eval" autocomplete="off" rows="1">
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 const setDetailsUserName = compose(
   ...['details', 'users', 0, 'name'].map((key) =&gt; {
     return (callback) =&gt; {
