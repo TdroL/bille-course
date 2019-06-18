@@ -1,0 +1,16 @@
+.flex {
+    display: flex;
+}
+
+.flex > .item {
+    flex: 1;
+}
+
+.flex > .item textarea,
+.flex > .item .eval-container {
+    width: 95%;
+}
+
+.flex > .item textarea {
+    font-size: 0.40em;
+}

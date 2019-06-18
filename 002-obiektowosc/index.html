@@ -9,8 +9,9 @@
   <link rel="stylesheet" href="css/reveal.css">
   <link rel="stylesheet" href="css/theme/black.css">
 
-  <link rel="stylesheet" href="lib/css/zenburn.css">
   <link rel="stylesheet" href="lib/css/eval.css">
+  <link rel="stylesheet" href="lib/css/grid.css">
+  <link rel="stylesheet" href="lib/css/zenburn.css">
 </head>
 <body>
   <div class="reveal">
@@ -582,6 +583,35 @@ a.fn();
       </section>
 
       <section>
+        <pre><code>a.fn();</code></pre>
+        <ul>
+          <li><pre><code>a.fn</code></pre></li>
+          <li><pre><code>a.__proto__.fn</code></pre></li>
+          <li><pre><code>a.__proto__.__proto__.fn</code></pre></li>
+          <li><pre><code>a.__proto__.__proto__.__proto__.fn</code></pre></li>
+          <li>etc</li>
+        </ul>
+      </section>
+
+      <section>
+        <p>Call pseudo-implementation</p>
+        <pre><code>function call(object, method, ...args) {
+  let current = object;
+  while (current !== null) {
+    if (current.hasOwnProperty(method)) {
+      return current[method].apply(object, ...args);
+    } else {
+      current = current.__proto__;
+    }
+  }
+
+  throw new TypeError(method + ' is not a function');
+}
+
+a.fn(1, 2, 3) === call(a, 'fn', 1, 2, 3);</code></pre>
+      </section>
+
+      <section>
         <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
 function fn() { return this.propA; }
 function A() {
@@ -1150,6 +1180,219 @@ let a = new A();
 a.propA = 2;
 a.propA;
         </textarea>
+      </section>
+
+      <section>
+        <p>side-by-side</p>
+        <div class="flex">
+          <div class="item">
+            <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+class A {
+  constructor(argA) {
+    this.propA = argA;
+  }
+}
+
+new A(1);
+            </textarea>
+          </div>
+          <div class="item">
+            <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+function A(argA) {
+  this.propA = argA;
+}
+
+new A(1);
+            </textarea>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex">
+          <div class="item">
+            <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+class A {
+  fn() {
+    return this;
+  }
+}
+
+new A();
+              </textarea>
+            </div>
+            <div class="item">
+              <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+function A() {}
+A.prototype.fn = function () {
+  return this;
+};
+
+new A();
+              </textarea>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex">
+          <div class="item">
+            <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+class A {
+  constructor(argA) {
+    this.propA = argA;
+  }
+}
+
+class B extends A {
+  constructor(argA, argB) {
+    super(argA);
+    this.propB = argB;
+  }
+}
+
+let b = new B(1, 2);
+log('is A', b instanceof A);
+log('is B', b instanceof B);
+b;
+              </textarea>
+          </div>
+          <div class="item">
+            <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+function A(argA) {
+  this.propA = argA;
+}
+
+function B(argA, argB) {
+  A.call(this, argA);
+  this.propB = argB;
+}
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B;
+
+let b = new B(1, 2);
+log('is A', b instanceof A);
+log('is B', b instanceof B);
+b;
+              </textarea>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex">
+          <div class="item">
+            <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+class A {
+  fn() {
+    return 'base';
+  }
+}
+
+class B extends A {}
+
+let b = new B();
+b.fn();
+            </textarea>
+          </div>
+          <div class="item">
+            <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+function A() {}
+A.prototype.fn = function () {
+  return 'base';
+};
+
+function B() {}
+B.prototype = Object.create(A.prototype);
+B.prototype.constructor = B;
+
+let b = new B();
+b.fn();
+            </textarea>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex">
+          <div class="item">
+            <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+class A {
+  fn() {
+    return 'base';
+  }
+}
+
+class B extends A {
+  fn() {
+    return 'override';
+  }
+}
+
+let b = new B();
+b.fn();
+            </textarea>
+          </div>
+          <div class="item">
+            <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+function A() {}
+A.prototype.fn = function () {
+  return 'base';
+};
+
+function B() {}
+B.prototype = Object.create(A.prototype);
+B.prototype.fn = function () {
+  return 'override';
+};
+B.prototype.constructor = B;
+
+let b = new B();
+b.fn();
+            </textarea>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex">
+          <div class="item">
+            <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+class A {
+  fn() {
+    return 'base';
+  }
+}
+
+class B extends A {
+  fn() {
+    return 'override-' + super.fn();
+  }
+}
+
+let b = new B();
+b.fn();
+            </textarea>
+          </div>
+          <div class="item">
+            <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+function A() {}
+A.prototype.fn = function () {
+  return 'base';
+};
+
+function B() {}
+B.prototype = Object.create(A.prototype);
+B.prototype.fn = function () {
+  return 'override-' + A.prototype.fn.call(this);
+};
+B.prototype.constructor = B;
+
+let b = new B();
+b.fn();
+            </textarea>
+          </div>
+        </div>
       </section>
 
       <section>
