@@ -163,6 +163,30 @@ fn(1, ...getArgs());
         </textarea>
       </section>
 
+      <section>
+        <p>tworzenie funkcji</p>
+
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+let fn = function () { return 0; }
+fn;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+function fn() { return 0; }
+fn;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+let fn = () =&gt; { return 0; }
+fn;
+        </textarea>
+
+        <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
+let fn = () =&gt; 0
+fn;
+        </textarea>
+      </section>
+
       <section id="paradigms-start">
         <h1>paradygmaty</h1>
         <ul>
@@ -204,12 +228,12 @@ class NumberList {
     });
   }
 }
-class EvenCriteria { run(value) { return !(value % 2); } }
+class EvenCriteria { run(value) { return value % 2; } }
 class MultiplyProcessor { run(value) { return value * 2; } }
 
 const numberList = new NumberList([1, 2, 3]);
 numberList.applyCriteria(new EvenCriteria());
-numberList.applyCriteria(new MultiplyProcessor());
+numberList.applyProcessor(new MultiplyProcessor());
 numberList.list;
         </textarea>
         <!-- <textarea class="eval" autocomplete="off" autocorrect="off" spellcheck="false" rows="1">
@@ -356,8 +380,8 @@ a;
             I/O
             <ol>
               <li>uzywanie method obiektu <code>console</code></li>
-              <li>modyfikowanie DOMa (przeglądarki)</li>
-              <li>operacje na plikach tj. czytanie/zapisywanie (serwer)</li>
+              <li>modyfikowanie DOMa (przeglądarka)</li>
+              <li>operacje na plikach, tj. czytanie/zapisywanie (serwer)</li>
               <li>requesty sieciowe (przeglądarka i serwer)</li>
             </ol>
           </li>
@@ -442,11 +466,7 @@ const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 
 function f(x) {
-  return square(
-    multiply(
-      decrease(x)
-    )
-  );
+  return square(multiply(decrease(x)));
 }
 
 f(12);
@@ -465,7 +485,7 @@ function compose3(fn1, fn2, fn3) {
   };
 }
 
-const f = compose4(square, multiply, decrease);
+const f = compose3(square, multiply, decrease);
 f(12);
         </textarea>
       </section>
@@ -486,7 +506,7 @@ function compose3(fn1, fn2, fn3) {
   };
 }
 
-const f = compose4(square, multiply, decrease);
+const f = compose3(square, multiply, decrease);
 f(12);
         </textarea>
       </section>
@@ -497,7 +517,7 @@ const square = (x) =&gt; x * x;
 const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 
-function compose4(fnList) {
+function compose3(fnList) {
   return (x) =&gt; {
     let result = x;
     result = fnList[2](result);
@@ -507,7 +527,7 @@ function compose4(fnList) {
   };
 }
 
-const f = compose4([square, multiply, decrease]);
+const f = compose3([square, multiply, decrease]);
 f(12);
         </textarea>
       </section>
@@ -579,7 +599,7 @@ const multiply = (x) =&gt; x * 2;
 const decrease = (x) =&gt; x - 1;
 
 const f = compose(
-  square
+  square,
   (x) =&gt; { log('x', x); return x; },
   multiply,
   (x) =&gt; { log('x', x); return x; },
@@ -714,10 +734,12 @@ f(1, 2, 3) === g(1)(2)(3);
 const f = (x, y, z) =&gt; x + y + z;
 
 function curryN(n, fn) {
-  return (x) =&gt; { // pojedyńczy argument
-    if (1 >= n) {
+  // zawsze akceptuj jeden argument
+  return (x) =&gt; {
+    if (n &lt;= 1) {
       return fn(x);
     } else {
+      // rekurencyjnie wywołaj dla kolejnych argumentów
       return curryN(n - 1, (...args) =&gt; {
         return fn(x, ...args);
       });
@@ -739,10 +761,12 @@ f(1, 2, 3) === g(1)(2)(3);
 const f = (x, y, z) =&gt; x + y + z;
 
 function curryN(n, fn) {
-  return (...args) =&gt; { // wiele argumentów
-    if (args.length >= n) {
+  // akceptuj wiele argumentów
+  return (...args) =&gt; {
+    if (args.length &gt;= n) {
       return fn(...args);
     } else {
+      // rekurencyjnie wywołaj dla reszty argumentów
       return curryN(n - args.length, (...restArgs) =&gt; {
         return fn(...args, ...restArgs);
       });
