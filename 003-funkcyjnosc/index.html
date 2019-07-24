@@ -1173,7 +1173,7 @@ const isDefined = (x) =&gt; x != null;
 
 function pick(key) {
   return (input) =&gt; {
-    return x != null ? input[key] : undefined;
+    return input != null ? input[key] : undefined;
   };
 }
 // pick('a')({ a: 1 })
@@ -1194,7 +1194,7 @@ const isDefined = (x) =&gt; x != null;
 function pluck(key) {
   return (input) =&gt; {
     return input.map((value) =&gt; {
-      return x != null ? value[key] : undefined;
+      return value != null ? value[key] : undefined;
     });
   };
 }
@@ -1587,7 +1587,6 @@ const setName = (name) =&gt; name ? 'updated name' : 'new name';
 const setDetailsUserName = access('details', (details) =&gt; {
   return access('users', (users) =&gt; {
     return access(0, (user) =&gt; {
-      // f((x) => g(x)) === f(g)
       return access('name', setName)(user);
     })(users);
   })(details);
